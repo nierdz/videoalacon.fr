@@ -3,6 +3,7 @@ FROM php:7.4-fpm as build
 ENV COMPOSER_ALLOW_SUPERUSER 1
 ENV COMPOSER_HOME /tmp
 ENV COMPOSER_VERSION 1.10.6
+ENV HOME_DIR /var/www
 SHELL ["/bin/bash", "-o", "errexit", "-o", "pipefail", "-o", "nounset", "-c"]
 
 RUN printf "# composer php cli ini settings\n\
@@ -32,7 +33,15 @@ RUN apt-get update && \
     && rm -rf /var/lib/apt/lists/* \
     && apt-get clean
 
+RUN docker-php-ext-install mysqli
+
+WORKDIR $HOME_DIR
+
 COPY ./composer.json composer.json
 COPY ./composer.lock composer.lock
+COPY ./config config
+COPY ./web/index.php web/index.php
+COPY ./web/wp-config.php web/wp-config.php
+COPY ./wp-cli.yml wp-cli.yml
 
 RUN composer install -n
