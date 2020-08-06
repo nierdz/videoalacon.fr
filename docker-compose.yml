@@ -3,10 +3,13 @@ version: '3'
 networks:
   madrabbit-network:
 
+volumes:
+  web-volume:
+
 services:
   madrabbit-nginx:
     container_name: madrabbit-nginx
-    image: nginx:1.17
+    image: nginx:1.19
     restart: always
     ports:
       - 127.0.0.1:80:80
@@ -17,6 +20,7 @@ services:
       - ./nginx/mad-rabbit.com.conf:/etc/nginx/conf.d/mad-rabbit.com.conf:ro
       - ./mad-rabbit.com-key.pem:/etc/nginx/mad-rabbit.com-key.pem:ro
       - ./mad-rabbit.com.pem:/etc/nginx/mad-rabbit.com.pem:ro
+      - web-volume:/var/www/web:ro
     depends_on:
       - madrabbit-php-fpm
     networks:
@@ -45,6 +49,10 @@ services:
     build:
       context: ./
     restart: always
+    volumes:
+      - ./mad-rabbit.com-key.pem:/etc/nginx/mad-rabbit.com-key.pem:ro
+      - ./mad-rabbit.com.pem:/etc/nginx/mad-rabbit.com.pem:ro
+      - web-volume:/var/www/web:rw
     depends_on:
       - madrabbit-mysql
     networks:
