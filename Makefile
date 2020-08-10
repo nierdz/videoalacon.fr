@@ -12,3 +12,12 @@ mkcert: ## Create certs if needed
 	else \
 		mkcert "mad-rabbit.com"; \
 	fi; \
+
+clean: ## Wipe all data
+	$(info --> Wipe all data)
+	( \
+		docker-compose down; \
+		rm mad-rabbit.com-key.pem; \
+		rm mad-rabbit.com.pem; \
+		sudo rm -rf mysql; \
+	)
