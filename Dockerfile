@@ -29,3 +29,4 @@ RUN curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli
     && chmod +x wp-cli.phar \
     && mv wp-cli.phar /usr/local/bin/wp
 COPY ./wp-cli.yml wp-cli.yml
+COPY ./scripts/entrypoint.sh /usr/local/bin/docker-php-entrypoint
