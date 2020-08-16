@@ -18,6 +18,17 @@ if ! runuser - www-data -s /bin/bash -c "/usr/local/bin/wp core is-installed"; t
       --skip-email"
 fi
 
+if ! runuser - www-data -s /bin/bash -c "/usr/local/bin/wp theme is-active madrabbit"; then
+  runuser - www-data -s /bin/bash -c "
+    /usr/local/bin/wp \
+    activate madrabbit"
+fi
+
+/usr/local/bin/wp \
+  --allow-root \
+  theme \
+  delete twentytwenty
+
 # first arg is `-f` or `--some-option`
 if [ "${1#-}" != "$1" ]; then
   set -- php-fpm "$@"
