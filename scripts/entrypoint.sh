@@ -10,7 +10,6 @@ DEBUG=${DEBUG:=0}
 if ! runuser - www-data -s /bin/bash -c "/usr/local/bin/wp core is-installed"; then
   runuser - www-data -s /bin/bash -c "
     /usr/local/bin/wp \
-      --allow-root \
       core install \
       --title=\"Vidéos à la con de l'internet\" \
       --admin_user=\"tmtk\" \
