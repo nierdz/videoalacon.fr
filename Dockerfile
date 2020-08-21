@@ -13,8 +13,8 @@ RUN apt-get update && \
     && rm -rf /var/lib/apt/lists/* \
     && apt-get clean
 
-RUN docker-php-ext-install mysqli
-RUN docker-php-ext-install zip
+RUN docker-php-ext-install mysqli \
+    && docker-php-ext-install zip
 
 RUN mkdir /var/www/bedrock
 WORKDIR /var/www/bedrock
