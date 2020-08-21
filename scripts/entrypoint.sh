@@ -7,8 +7,11 @@ set -o nounset
 DEBUG=${DEBUG:=0}
 [[ $DEBUG -eq 1 ]] && set -o xtrace
 
-if ! runuser - www-data -s /bin/bash -c "/usr/local/bin/wp core is-installed"; then
+BEDROCK_DIR="/var/www/bedrock"
+
+if ! runuser - www-data -s /bin/bash -c "cd $BEDROCK_DIR && /usr/local/bin/wp core is-installed"; then
   runuser - www-data -s /bin/bash -c "
+    cd $BEDROCK_DIR && \
     /usr/local/bin/wp \
       core install \
       --title=\"Vidéos à la con de l'internet\" \
@@ -18,16 +21,16 @@ if ! runuser - www-data -s /bin/bash -c "/usr/local/bin/wp core is-installed"; t
       --skip-email"
 fi
 
-if ! runuser - www-data -s /bin/bash -c "/usr/local/bin/wp theme is-active madrabbit"; then
+if ! runuser - www-data -s /bin/bash -c "cd $BEDROCK_DIR && /usr/local/bin/wp theme is-active madrabbit"; then
   runuser - www-data -s /bin/bash -c "
+    cd $BEDROCK_DIR && \
     /usr/local/bin/wp \
+    theme \
     activate madrabbit"
 fi
 
-/usr/local/bin/wp \
-  --allow-root \
-  theme \
-  delete twentytwenty
+rm -rf "$BEDROCK_DIR/web/wp/wp-content/themes/"
+rm -rf "$BEDROCK_DIR/web/wp/wp-content/plugins/"
 
 # first arg is `-f` or `--some-option`
 if [ "${1#-}" != "$1" ]; then

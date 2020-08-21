@@ -1,5 +1,4 @@
 FROM php:7.4-fpm
-ENV HOME_DIR /var/www
 SHELL ["/bin/bash", "-o", "errexit", "-o", "pipefail", "-o", "nounset", "-c"]
 # hadolint ignore=DL3022
 COPY --from=composer:1.10 /usr/bin/composer /usr/bin/composer
@@ -16,12 +15,10 @@ RUN apt-get update && \
 RUN docker-php-ext-install mysqli
 RUN docker-php-ext-install zip
 
-WORKDIR $HOME_DIR
-
-COPY ./composer.json composer.json
-COPY ./composer.lock composer.lock
-RUN composer install -n \
-    && chown -R www-data:www-data /var/www/
+RUN mkdir /var/www/bedrock
+WORKDIR /var/www/bedrock
+RUN composer create-project roots/bedrock /var/www/bedrock 1.13.5 \
+    && chown -R www-data:www-data /var/www/bedrock
 COPY ./.env .env
 COPY ./config config
 
