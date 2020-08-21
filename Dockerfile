@@ -9,6 +9,7 @@ RUN apt-get update && \
       git \
       less \
       libzip-dev \
+      unzip \
     && rm -rf /var/lib/apt/lists/* \
     && apt-get clean
 
