@@ -1,0 +1,63 @@
+version: '3'
+
+networks:
+  madrabbit-network:
+
+volumes:
+  bedrock-volume:
+
+services:
+  madrabbit-nginx:
+    container_name: madrabbit-nginx
+    image: nginx:1.19
+    restart: always
+    ports:
+      - 127.0.0.1:80:80
+      - 127.0.0.1:443:443
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./nginx/conf:/etc/nginx/conf:ro
+      - ./nginx/mad-rabbit.com.conf:/etc/nginx/conf.d/mad-rabbit.com.conf:ro
+      - ./mad-rabbit.com-key.pem:/etc/nginx/mad-rabbit.com-key.pem:ro
+      - ./mad-rabbit.com.pem:/etc/nginx/mad-rabbit.com.pem:ro
+      - bedrock-volume:/var/www/bedrock:ro
+      - ./madrabbit:/var/www/bedrock/web/app/themes/madrabbit:ro
+    depends_on:
+      - madrabbit-php-fpm
+    networks:
+      - madrabbit-network
+
+  madrabbit-mysql:
+    container_name: madrabbit-mysql
+    image: nierdz/mysql:1.0.2
+    restart: always
+    command: >
+      --default-authentication-plugin=mysql_native_password
+      --character-set-server=utf8mb4
+      --collation-server=utf8mb4_unicode_ci
+    volumes:
+      - ./mysql:/var/lib/mysql:rw
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_NAME}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+    networks:
+      - madrabbit-network
+
+  madrabbit-php-fpm:
+    container_name: madrabbit-php-fpm
+    build:
+      context: ./
+    restart: always
+    volumes:
+      - ./mad-rabbit.com-key.pem:/etc/nginx/mad-rabbit.com-key.pem:ro
+      - ./mad-rabbit.com.pem:/etc/nginx/mad-rabbit.com.pem:ro
+      - bedrock-volume:/var/www/bedrock:rw
+      - ./madrabbit:/var/www/bedrock/web/app/themes/madrabbit:rw
+    environment:
+      TMTK_PASSWORD: ${TMTK_PASSWORD}
+    depends_on:
+      - madrabbit-mysql
+    networks:
+      - madrabbit-network
