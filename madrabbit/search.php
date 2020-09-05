@@ -2,52 +2,78 @@
 /**
  * The template for displaying search results pages
  *
- * @link https://developer.wordpress.org/themes/basics/template-hierarchy/#search-result
- *
  * @package madrabbit
  */
 
+// Exit if accessed directly.
+defined( 'ABSPATH' ) || exit;
+
 get_header();
+
+$container = get_theme_mod( 'understrap_container_type' );
+
 ?>
 
-	<main id="primary" class="site-main">
+<div class="wrapper" id="search-wrapper">
 
-		<?php if ( have_posts() ) : ?>
+	<div class="<?php echo esc_attr( $container ); ?>" id="content" tabindex="-1">
 
-			<header class="page-header">
-				<h1 class="page-title">
+		<div class="row">
+
+			<!-- Do the left sidebar check and opens the primary div -->
+			<?php get_template_part( 'global-templates/left-sidebar-check' ); ?>
+
+			<main class="site-main" id="main">
+
+				<?php if ( have_posts() ) : ?>
+
+					<header class="page-header">
+
+							<h1 class="page-title">
+								<?php
+								printf(
+									/* translators: %s: query term */
+									esc_html__( 'Search Results for: %s', 'understrap' ),
+									'<span>' . get_search_query() . '</span>'
+								);
+								?>
+							</h1>
+
+					</header><!-- .page-header -->
+
+					<?php /* Start the Loop */ ?>
 					<?php
-					/* translators: %s: search query. */
-					printf( esc_html__( 'Search Results for: %s', 'madrabbit' ), '<span>' . get_search_query() . '</span>' );
+					while ( have_posts() ) :
+						the_post();
+
+						/*
+						 * Run the loop for the search to output the results.
+						 * If you want to overload this in a child theme then include a file
+						 * called content-search.php and that will be used instead.
+						 */
+						get_template_part( 'loop-templates/content', 'search' );
+					endwhile;
 					?>
-				</h1>
-			</header><!-- .page-header -->
 
-			<?php
-			/* Start the Loop */
-			while ( have_posts() ) :
-				the_post();
+				<?php else : ?>
 
-				/**
-				 * Run the loop for the search to output the results.
-				 * If you want to overload this in a child theme then include a file
-				 * called content-search.php and that will be used instead.
-				 */
-				get_template_part( 'template-parts/content', 'search' );
+					<?php get_template_part( 'loop-templates/content', 'none' ); ?>
 
-			endwhile;
+				<?php endif; ?>
 
-			the_posts_navigation();
+			</main><!-- #main -->
 
-		else :
+			<!-- The pagination component -->
+			<?php understrap_pagination(); ?>
 
-			get_template_part( 'template-parts/content', 'none' );
+			<!-- Do the right sidebar check -->
+			<?php get_template_part( 'global-templates/right-sidebar-check' ); ?>
 
-		endif;
-		?>
+		</div><!-- .row -->
 
-	</main><!-- #main -->
+	</div><!-- #content -->
+
+</div><!-- #search-wrapper -->
 
 <?php
-get_sidebar();
 get_footer();

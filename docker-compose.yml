@@ -54,7 +54,7 @@ services:
       - ./mad-rabbit.com-key.pem:/etc/nginx/mad-rabbit.com-key.pem:ro
       - ./mad-rabbit.com.pem:/etc/nginx/mad-rabbit.com.pem:ro
       - bedrock-volume:/var/www/bedrock:rw
-      - ./madrabbit:/var/www/bedrock/web/app/themes/madrabbit:ro
+      - ./madrabbit:/var/www/bedrock/web/app/themes/madrabbit:rw
     environment:
       TMTK_PASSWORD: ${TMTK_PASSWORD}
     depends_on:
