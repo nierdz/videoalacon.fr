@@ -2,39 +2,50 @@
 /**
  * The template for displaying all single posts
  *
- * @link https://developer.wordpress.org/themes/basics/template-hierarchy/#single-post
- *
  * @package madrabbit
  */
 
+// Exit if accessed directly.
+defined( 'ABSPATH' ) || exit;
+
 get_header();
+$container = get_theme_mod( 'understrap_container_type' );
 ?>
 
-	<main id="primary" class="site-main">
+<div class="wrapper" id="single-wrapper">
 
-		<?php
-		while ( have_posts() ) :
-			the_post();
+	<div class="<?php echo esc_attr( $container ); ?>" id="content" tabindex="-1">
 
-			get_template_part( 'template-parts/content', get_post_type() );
+		<div class="row">
 
-			the_post_navigation(
-				array(
-					'prev_text' => '<span class="nav-subtitle">' . esc_html__( 'Previous:', 'madrabbit' ) . '</span> <span class="nav-title">%title</span>',
-					'next_text' => '<span class="nav-subtitle">' . esc_html__( 'Next:', 'madrabbit' ) . '</span> <span class="nav-title">%title</span>',
-				)
-			);
+			<!-- Do the left sidebar check -->
+			<?php get_template_part( 'global-templates/left-sidebar-check' ); ?>
 
-			// If comments are open or we have at least one comment, load up the comment template.
-			if ( comments_open() || get_comments_number() ) :
-				comments_template();
-			endif;
+			<main class="site-main" id="main">
 
-		endwhile; // End of the loop.
-		?>
+				<?php
+				while ( have_posts() ) {
+					the_post();
+					get_template_part( 'loop-templates/content', 'single' );
+					understrap_post_nav();
 
-	</main><!-- #main -->
+					// If comments are open or we have at least one comment, load up the comment template.
+					if ( comments_open() || get_comments_number() ) {
+						comments_template();
+					}
+				}
+				?>
+
+			</main><!-- #main -->
+
+			<!-- Do the right sidebar check -->
+			<?php get_template_part( 'global-templates/right-sidebar-check' ); ?>
+
+		</div><!-- .row -->
+
+	</div><!-- #content -->
+
+</div><!-- #single-wrapper -->
 
 <?php
-get_sidebar();
 get_footer();
