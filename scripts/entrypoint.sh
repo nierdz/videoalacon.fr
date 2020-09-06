@@ -14,6 +14,7 @@ if ! runuser - www-data -s /bin/bash -c "cd $BEDROCK_DIR && /usr/local/bin/wp co
     cd $BEDROCK_DIR && \
     /usr/local/bin/wp \
       core install \
+      --url=\"$WP_HOME\" \
       --title=\"Vidéos à la con de l'internet\" \
       --admin_user=\"tmtk\" \
       --admin_password=\"${TMTK_PASSWORD}\" \
