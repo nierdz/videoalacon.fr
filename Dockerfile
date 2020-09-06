@@ -21,7 +21,7 @@ WORKDIR /var/www/bedrock
 RUN composer create-project roots/bedrock /var/www/bedrock 1.14.2 \
     && chown -R www-data:www-data /var/www/bedrock
 COPY ./.env .env
-COPY ./config config
+COPY ./config/environments config/environments/
 
 RUN curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar \
     && chmod +x wp-cli.phar \
