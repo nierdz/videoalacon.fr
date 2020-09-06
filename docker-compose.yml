@@ -29,7 +29,7 @@ services:
 
   madrabbit-mysql:
     container_name: madrabbit-mysql
-    image: nierdz/mysql:1.0.2
+    image: nierdz/mysql:1.1.0
     restart: always
     command: >
       --default-authentication-plugin=mysql_native_password
