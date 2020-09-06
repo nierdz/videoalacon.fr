@@ -18,7 +18,7 @@ RUN docker-php-ext-install mysqli \
 
 RUN mkdir /var/www/bedrock
 WORKDIR /var/www/bedrock
-RUN composer create-project roots/bedrock /var/www/bedrock 1.13.5 \
+RUN composer create-project roots/bedrock /var/www/bedrock 1.14.2 \
     && chown -R www-data:www-data /var/www/bedrock
 COPY ./.env .env
 COPY ./config config
