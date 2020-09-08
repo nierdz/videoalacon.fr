@@ -30,6 +30,17 @@ if ! runuser - www-data -s /bin/bash -c "cd $BEDROCK_DIR && /usr/local/bin/wp th
     activate madrabbit"
 fi
 
+runuser - www-data -s /bin/bash -c "
+  cd $BEDROCK_DIR && \
+  /usr/local/bin/wp \
+    language core \
+    install fr_FR"
+runuser - www-data -s /bin/bash -c "
+  cd $BEDROCK_DIR && \
+  /usr/local/bin/wp \
+    language core \
+    activate fr_FR"
+
 rm -rf "$BEDROCK_DIR/web/wp/wp-content/themes/"
 rm -rf "$BEDROCK_DIR/web/wp/wp-content/plugins/"
 
