@@ -8,20 +8,23 @@ RUN apt-get update && \
     apt-get install -y --no-install-recommends \
       git \
       less \
+      libpng-dev \
       libzip-dev \
       unzip \
     && rm -rf /var/lib/apt/lists/* \
     && apt-get clean
 
-RUN docker-php-ext-install mysqli \
-    && docker-php-ext-install zip
+RUN docker-php-ext-install \
+      gd \
+      mysqli \
+      zip
 
 RUN mkdir /var/www/bedrock
 WORKDIR /var/www/bedrock
-RUN composer create-project roots/bedrock /var/www/bedrock 1.13.5 \
+RUN composer create-project roots/bedrock /var/www/bedrock 1.14.2 \
     && chown -R www-data:www-data /var/www/bedrock
 COPY ./.env .env
-COPY ./config config
+COPY ./config/environments config/environments/
 
 RUN curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar \
     && chmod +x wp-cli.phar \
