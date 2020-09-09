@@ -14,8 +14,9 @@ if ! runuser - www-data -s /bin/bash -c "cd $BEDROCK_DIR && /usr/local/bin/wp co
     cd $BEDROCK_DIR && \
     /usr/local/bin/wp \
       core install \
+      --url=\"$WP_HOME\" \
       --title=\"Vidéos à la con de l'internet\" \
-      --admin_user=\"tmtk\" \
+      --admin_user=\"madrabbit\" \
       --admin_password=\"${TMTK_PASSWORD}\" \
       --admin_email=\"nierdz@example.com\" \
       --skip-email"
@@ -28,6 +29,17 @@ if ! runuser - www-data -s /bin/bash -c "cd $BEDROCK_DIR && /usr/local/bin/wp th
     theme \
     activate madrabbit"
 fi
+
+runuser - www-data -s /bin/bash -c "
+  cd $BEDROCK_DIR && \
+  /usr/local/bin/wp \
+    language core \
+    install fr_FR"
+runuser - www-data -s /bin/bash -c "
+  cd $BEDROCK_DIR && \
+  /usr/local/bin/wp \
+    language core \
+    activate fr_FR"
 
 rm -rf "$BEDROCK_DIR/web/wp/wp-content/themes/"
 rm -rf "$BEDROCK_DIR/web/wp/wp-content/plugins/"
