@@ -8,13 +8,16 @@ RUN apt-get update && \
     apt-get install -y --no-install-recommends \
       git \
       less \
+      libpng-dev \
       libzip-dev \
       unzip \
     && rm -rf /var/lib/apt/lists/* \
     && apt-get clean
 
-RUN docker-php-ext-install mysqli \
-    && docker-php-ext-install zip
+RUN docker-php-ext-install \
+      gd \
+      mysqli \
+      zip
 
 RUN mkdir /var/www/bedrock
 WORKDIR /var/www/bedrock
