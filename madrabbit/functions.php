@@ -15,7 +15,6 @@ $understrap_includes = array(
   '/enqueue.php',                         // Enqueue scripts and styles.
   '/template-tags.php',                   // Custom template tags for this theme.
   '/pagination.php',                      // Custom pagination for this theme.
-  '/hooks.php',                           // Custom hooks.
   '/extras.php',                          // Custom functions that act independently of the theme templates.
   '/customizer.php',                      // Customizer additions.
   '/custom-comments.php',                 // Custom Comments file.

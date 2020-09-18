@@ -67,35 +67,6 @@ if ( ! function_exists( 'understrap_theme_customize_register' ) ) {
     }
 
     $wp_customize->add_setting(
-      'understrap_container_type',
-      array(
-        'default'           => 'container',
-        'type'              => 'theme_mod',
-        'sanitize_callback' => 'understrap_theme_slug_sanitize_select',
-        'capability'        => 'edit_theme_options',
-      )
-    );
-
-    $wp_customize->add_control(
-      new WP_Customize_Control(
-        $wp_customize,
-        'understrap_container_type',
-        array(
-          'label'       => __( 'Container Width', 'understrap' ),
-          'description' => __( 'Choose between Bootstrap\'s container and container-fluid', 'understrap' ),
-          'section'     => 'understrap_theme_layout_options',
-          'settings'    => 'understrap_container_type',
-          'type'        => 'select',
-          'choices'     => array(
-            'container'       => __( 'Fixed width container', 'understrap' ),
-            'container-fluid' => __( 'Full width container', 'understrap' ),
-          ),
-          'priority'    => apply_filters( 'understrap_container_type_priority', 10 ),
-        )
-      )
-    );
-
-    $wp_customize->add_setting(
       'understrap_sidebar_position',
       array(
         'default'           => 'right',

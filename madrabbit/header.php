@@ -10,7 +10,6 @@
 // Exit if accessed directly.
 defined( 'ABSPATH' ) || exit;
 
-$container = get_theme_mod( 'understrap_container_type' );
 ?>
 <!DOCTYPE html>
 <html <?php language_attributes(); ?>>
@@ -32,16 +31,11 @@ $container = get_theme_mod( 'understrap_container_type' );
 
     <nav id="main-nav" class="navbar navbar-expand-md navbar-dark bg-primary" aria-labelledby="main-nav-label">
 
-      <h2 id="main-nav-label" class="sr-only">
-        <?php esc_html_e( 'Main Navigation', 'understrap' ); ?>
-      </h2>
+      <h2 id="main-nav-label" class="sr-only">Main Navigation</h2>
 
-    <?php if ( 'container' === $container ) : ?>
       <div class="container">
-    <?php endif; ?>
 
           <!-- Your site title as branding in the menu -->
-          <?php if ( ! has_custom_logo() ) { ?>
 
             <?php if ( is_front_page() && is_home() ) : ?>
 
@@ -53,13 +47,6 @@ $container = get_theme_mod( 'understrap_container_type' );
 
             <?php endif; ?>
 
-            <?php
-          } else {
-            the_custom_logo();
-          }
-          ?>
-          <!-- end custom logo -->
-
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="<?php esc_attr_e( 'Toggle navigation', 'understrap' ); ?>">
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -68,20 +55,18 @@ $container = get_theme_mod( 'understrap_container_type' );
         <?php
         wp_nav_menu(
           array(
+            'menu'            => 'Top Menu',
             'theme_location'  => 'primary',
             'container_class' => 'collapse navbar-collapse',
             'container_id'    => 'navbarNavDropdown',
             'menu_class'      => 'navbar-nav ml-auto',
-            'fallback_cb'     => '',
             'menu_id'         => 'main-menu',
             'depth'           => 2,
-            'walker'          => new Understrap_WP_Bootstrap_Navwalker(),
+            'walker'          => new Understrap_WP_Bootstrap_Navwalker()
           )
         );
         ?>
-      <?php if ( 'container' === $container ) : ?>
       </div><!-- .container -->
-      <?php endif; ?>
 
     </nav><!-- .site-navigation -->
 
