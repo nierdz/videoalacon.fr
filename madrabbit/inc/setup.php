@@ -8,112 +8,114 @@
 // Exit if accessed directly.
 defined( 'ABSPATH' ) || exit;
 
+// Remove admin bar on front
+add_filter('show_admin_bar', '__return_false');
+remove_action('init', 'wp_admin_bar_init');
+
 // Set the content width based on the theme's design and stylesheet.
-if ( ! isset( $content_width ) ) {
-  $content_width = 640; /* pixels */
-}
+//if ( ! isset( $content_width ) ) {
+//  $content_width = 640; /* pixels */
+//}
 
-add_action( 'after_setup_theme', 'understrap_setup' );
+add_action( 'after_switch_theme', 'madrabbit_setup' );
 
-if ( ! function_exists( 'understrap_setup' ) ) {
-  /**
-   * Sets up theme defaults and registers support for various WordPress features.
-   *
-   * Note that this function is hooked into the after_setup_theme hook, which
-   * runs before the init hook. The init hook is too late for some features, such
-   * as indicating support for post thumbnails.
+/**
+ * Sets up theme defaults and registers support for various WordPress features.
+ *
+ * Note that this function is hooked into the after_setup_theme hook, which
+ * runs before the init hook. The init hook is too late for some features, such
+ * as indicating support for post thumbnails.
+ */
+function madrabbit_setup() {
+
+  // Add default posts and comments RSS feed links to head.
+  add_theme_support( 'automatic-feed-links' );
+
+  /*
+   * Let WordPress manage the document title.
+   * By adding theme support, we declare that this theme does not use a
+   * hard-coded <title> tag in the document head, and expect WordPress to
+   * provide it for us.
    */
-  function understrap_setup() {
-    /*
-     * Make theme available for translation.
-     * Translations can be filed in the /languages/ directory.
-     * If you're building a theme based on understrap, use a find and replace
-     * to change 'understrap' to the name of your theme in all the template files
-     */
-    load_theme_textdomain( 'understrap', get_template_directory() . '/languages' );
+  add_theme_support( 'title-tag' );
 
-    // Add default posts and comments RSS feed links to head.
-    add_theme_support( 'automatic-feed-links' );
+  // This theme uses wp_nav_menu() in one location.
+  register_nav_menus(
+    array(
+      'primary' => __( 'Primary Menu', 'understrap' ),
+    )
+  );
 
-    /*
-     * Let WordPress manage the document title.
-     * By adding theme support, we declare that this theme does not use a
-     * hard-coded <title> tag in the document head, and expect WordPress to
-     * provide it for us.
-     */
-    add_theme_support( 'title-tag' );
+  /*
+   * Switch default core markup for search form, comment form, and comments
+   * to output valid HTML5.
+   */
+  add_theme_support(
+    'html5',
+    array(
+      'search-form',
+      'comment-form',
+      'comment-list',
+      'gallery',
+      'caption',
+      'script',
+      'style',
+    )
+  );
 
-    // This theme uses wp_nav_menu() in one location.
-    register_nav_menus(
+  /*
+   * Adding Thumbnail basic support
+   */
+  add_theme_support( 'post-thumbnails' );
+  update_option( 'thumbnail_size_w', 312 );
+  update_option( 'thumbnail_size_h', 245 );
+  update_option( 'thumbnail_crop', 0 );
+  update_option( 'medium_size_w', 135 );
+  update_option( 'medium_size_h', 85 );
+  update_option( 'large_size_w', 1024 );
+  update_option( 'large_size_h', 1024 );
+
+  /*
+   * Adding support for Widget edit icons in customizer
+   */
+  add_theme_support( 'customize-selective-refresh-widgets' );
+
+  /*
+   * Enable support for Post Formats.
+   * See http://codex.wordpress.org/Post_Formats
+   */
+  add_theme_support(
+    'post-formats',
+    array(
+      'aside',
+      'image',
+      'video',
+      'quote',
+      'link',
+    )
+  );
+
+  // Set up the WordPress core custom background feature.
+  add_theme_support(
+    'custom-background',
+    apply_filters(
+      'understrap_custom_background_args',
       array(
-        'primary' => __( 'Primary Menu', 'understrap' ),
+        'default-color' => 'ffffff',
+        'default-image' => '',
       )
-    );
+    )
+  );
 
-    /*
-     * Switch default core markup for search form, comment form, and comments
-     * to output valid HTML5.
-     */
-    add_theme_support(
-      'html5',
-      array(
-        'search-form',
-        'comment-form',
-        'comment-list',
-        'gallery',
-        'caption',
-        'script',
-        'style',
-      )
-    );
+  // Set up the WordPress Theme logo feature.
+  add_theme_support( 'custom-logo' );
 
-    /*
-     * Adding Thumbnail basic support
-     */
-    add_theme_support( 'post-thumbnails' );
+  // Add support for responsive embedded content.
+  add_theme_support( 'responsive-embeds' );
 
-    /*
-     * Adding support for Widget edit icons in customizer
-     */
-    add_theme_support( 'customize-selective-refresh-widgets' );
+  // Check and setup theme default settings.
+  madrabbit_setup_theme_default_settings();
 
-    /*
-     * Enable support for Post Formats.
-     * See http://codex.wordpress.org/Post_Formats
-     */
-    add_theme_support(
-      'post-formats',
-      array(
-        'aside',
-        'image',
-        'video',
-        'quote',
-        'link',
-      )
-    );
-
-    // Set up the WordPress core custom background feature.
-    add_theme_support(
-      'custom-background',
-      apply_filters(
-        'understrap_custom_background_args',
-        array(
-          'default-color' => 'ffffff',
-          'default-image' => '',
-        )
-      )
-    );
-
-    // Set up the WordPress Theme logo feature.
-    add_theme_support( 'custom-logo' );
-
-    // Add support for responsive embedded content.
-    add_theme_support( 'responsive-embeds' );
-
-    // Check and setup theme default settings.
-    understrap_setup_theme_default_settings();
-
-  }
 }
 
 

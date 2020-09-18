@@ -10,14 +10,13 @@
 // Exit if accessed directly.
 defined( 'ABSPATH' ) || exit;
 
-$container = get_theme_mod( 'understrap_container_type' );
 ?>
 
 <?php get_template_part( 'sidebar-templates/sidebar', 'footerfull' ); ?>
 
 <div class="wrapper" id="wrapper-footer">
 
-  <div class="<?php echo esc_attr( $container ); ?>">
+  <div class="container">
 
     <div class="row">
 
@@ -27,7 +26,11 @@ $container = get_theme_mod( 'understrap_container_type' );
 
           <div class="site-info">
 
-            <?php understrap_site_info(); ?>
+            <a href="http://wordpress.org/">Powered by WordPress</a>
+            <span class="sep"> | </span>
+            <a href="https://github.com/nierdz/mad-rabbit.com/">Site web : Open source</a>
+            <span class="sep"> | </span>
+            <a href="https://github.com/nierdz/infra-docker/">Infrastructure : Open source</a>
 
           </div><!-- .site-info -->
 
