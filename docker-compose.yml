@@ -22,6 +22,7 @@ services:
       - ./mad-rabbit.local.pem:/etc/nginx/mad-rabbit.local.pem:ro
       - bedrock-volume:/var/www/bedrock:ro
       - ./madrabbit:/var/www/bedrock/web/app/themes/madrabbit:ro
+      - ./images:/var/www/bedrock/web/images:ro
     depends_on:
       - madrabbit-php-fpm
     networks:
@@ -55,6 +56,7 @@ services:
     volumes:
       - bedrock-volume:/var/www/bedrock:rw
       - ./madrabbit:/var/www/bedrock/web/app/themes/madrabbit:rw
+      - ./images:/var/www/bedrock/web/images:ro
     environment:
       TMTK_PASSWORD: ${TMTK_PASSWORD}
       WP_HOME: ${WP_HOME}
