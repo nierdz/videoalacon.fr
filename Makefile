@@ -12,11 +12,3 @@ mkcert: ## Create certs if needed
 	else \
 		mkcert "mad-rabbit.local"; \
 	fi; \
-
-clean: ## Wipe all data
-	$(info --> Wipe all data)
-	( \
-		docker-compose down; \
-		docker volume rm mad-rabbitcom_bedrock-volume; \
-		sudo rm -rf mysql; \
-	)
