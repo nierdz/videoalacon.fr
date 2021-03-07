@@ -17,7 +17,7 @@ remove_action('init', 'wp_admin_bar_init');
 //  $content_width = 640; /* pixels */
 //}
 
-add_action( 'after_switch_theme', 'madrabbit_setup' );
+add_action( 'after_setup_theme', 'madrabbit_setup' );
 
 /**
  * Sets up theme defaults and registers support for various WordPress features.

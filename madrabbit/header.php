@@ -73,7 +73,7 @@ defined( 'ABSPATH' ) || exit;
             'container_id'    => 'navbarNavDropdown',
             'menu_class'      => 'navbar-nav ml-auto',
             'menu_id'         => 'main-menu',
-            'depth'           => 2,
+            'depth'           => 1,
             'walker'          => new Understrap_WP_Bootstrap_Navwalker()
           )
         );
