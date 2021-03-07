@@ -18,7 +18,5 @@ clean: ## Wipe all data
 	( \
 		docker-compose down; \
 		docker volume rm mad-rabbitcom_bedrock-volume; \
-		rm mad-rabbit.local-key.pem; \
-		rm mad-rabbit.local.pem; \
 		sudo rm -rf mysql; \
 	)
