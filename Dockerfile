@@ -1,7 +1,7 @@
 FROM php:7.4-fpm
 SHELL ["/bin/bash", "-o", "errexit", "-o", "pipefail", "-o", "nounset", "-c"]
 # hadolint ignore=DL3022
-COPY --from=composer:1.10 /usr/bin/composer /usr/bin/composer
+COPY --from=composer:2.0 /usr/bin/composer /usr/bin/composer
 
 # hadolint ignore=DL3008
 RUN apt-get update && \
@@ -21,8 +21,13 @@ RUN docker-php-ext-install \
 
 RUN mkdir /var/www/bedrock
 WORKDIR /var/www/bedrock
-RUN composer create-project roots/bedrock /var/www/bedrock 1.14.2 \
+COPY ./composer.json composer.json
+COPY ./composer.lock composer.lock
+#RUN composer create-project roots/bedrock /var/www/bedrock 1.15.2 \
+#    && chown -R www-data:www-data /var/www/bedrock
+RUN composer install --no-interaction --no-dev \
     && chown -R www-data:www-data /var/www/bedrock
+
 COPY ./.env .env
 COPY ./config/environments config/environments/
 
