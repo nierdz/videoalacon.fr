@@ -30,7 +30,7 @@ defined( 'ABSPATH' ) || exit;
             <span class="sep"> | </span>
             <a href="https://github.com/nierdz/mad-rabbit.com/">Site web : Open source</a>
             <span class="sep"> | </span>
-            <a href="https://github.com/nierdz/infra-docker/">Infrastructure : Open source</a>
+            <a href="https://github.com/nierdz/infra/">Infrastructure : Open source</a>
 
           </div><!-- .site-info -->
 
