@@ -3,38 +3,17 @@ version: '3'
 networks:
   madrabbit-network:
 
-volumes:
-  bedrock-volume:
-
 services:
-  madrabbit-nginx:
-    container_name: madrabbit-nginx
-    image: nginx:1.19
-    restart: always
-    ports:
-      - 127.0.0.1:80:80
-      - 127.0.0.1:443:443
-    volumes:
-      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
-      - ./nginx/conf:/etc/nginx/conf:ro
-      - ./nginx/mad-rabbit.com.conf:/etc/nginx/conf.d/mad-rabbit.com.conf:ro
-      - ./mad-rabbit.local-key.pem:/etc/nginx/mad-rabbit.local-key.pem:ro
-      - ./mad-rabbit.local.pem:/etc/nginx/mad-rabbit.local.pem:ro
-      - bedrock-volume:/var/www/bedrock:ro
-      - ./madrabbit:/var/www/bedrock/web/app/themes/madrabbit:ro
-    depends_on:
-      - madrabbit-php-fpm
-    networks:
-      - madrabbit-network
-
   madrabbit-mysql:
     container_name: madrabbit-mysql
-    image: nierdz/mysql:1.1.0
+    image: nierdz/mysql:1.1.1
     restart: always
     command: >
       --default-authentication-plugin=mysql_native_password
       --character-set-server=utf8mb4
       --collation-server=utf8mb4_unicode_ci
+      --general_log=1
+      --general_log_file=/var/lib/mysql/general.log
     volumes:
       - ./mysql:/var/lib/mysql:rw
     environment:
@@ -45,14 +24,22 @@ services:
     networks:
       - madrabbit-network
 
-  madrabbit-php-fpm:
-    container_name: madrabbit-php-fpm
+  madrabbit-nginx-php:
+    container_name: madrabbit-nginx-php
     build:
       context: ./
     restart: always
+    ports:
+      - 127.0.0.1:80:80
+      - 127.0.0.1:443:443
     volumes:
-      - bedrock-volume:/var/www/bedrock:rw
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./nginx/conf:/etc/nginx/conf:ro
+      - ./nginx/mad-rabbit.com.conf:/etc/nginx/conf.d/mad-rabbit.com.conf:ro
+      - ./mad-rabbit.local-key.pem:/etc/nginx/mad-rabbit.local-key.pem:ro
+      - ./mad-rabbit.local.pem:/etc/nginx/mad-rabbit.local.pem:ro
       - ./madrabbit:/var/www/bedrock/web/app/themes/madrabbit:rw
+      - ./images:/var/www/bedrock/web/images:ro
     environment:
       TMTK_PASSWORD: ${TMTK_PASSWORD}
       WP_HOME: ${WP_HOME}

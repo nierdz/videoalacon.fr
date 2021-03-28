@@ -41,12 +41,5 @@ runuser - www-data -s /bin/bash -c "
     language core \
     activate fr_FR"
 
+# Delete all default themes
 rm -rf "$BEDROCK_DIR/web/wp/wp-content/themes/"
-rm -rf "$BEDROCK_DIR/web/wp/wp-content/plugins/"
-
-# first arg is `-f` or `--some-option`
-if [ "${1#-}" != "$1" ]; then
-  set -- php-fpm "$@"
-fi
-
-exec "$@"
