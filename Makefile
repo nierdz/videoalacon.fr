@@ -8,17 +8,7 @@ help: ## Print this help
 mkcert: ## Create certs if needed
 	$(info --> Create certs if needed)
 	@if [[ -e mad-rabbit.local-key.pem ]] && [[ -e mad-rabbit.local.pem ]]; then \
-		openssl verify -CAfile /home/nierdz/.local/share/mkcert/rootCA.pem mad-rabbit.local.pem; \
+		openssl verify -CAfile ~/.local/share/mkcert/rootCA.pem mad-rabbit.local.pem; \
 	else \
 		mkcert "mad-rabbit.local"; \
 	fi; \
-
-clean: ## Wipe all data
-	$(info --> Wipe all data)
-	( \
-		docker-compose down; \
-		docker volume rm mad-rabbitcom_bedrock-volume; \
-		rm mad-rabbit.local-key.pem; \
-		rm mad-rabbit.local.pem; \
-		sudo rm -rf mysql; \
-	)

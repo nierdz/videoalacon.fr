@@ -10,34 +10,37 @@
 // Exit if accessed directly.
 defined( 'ABSPATH' ) || exit;
 
-$container = get_theme_mod( 'understrap_container_type' );
 ?>
 
 <?php get_template_part( 'sidebar-templates/sidebar', 'footerfull' ); ?>
 
 <div class="wrapper" id="wrapper-footer">
 
-	<div class="<?php echo esc_attr( $container ); ?>">
+  <div class="container">
 
-		<div class="row">
+    <div class="row">
 
-			<div class="col-md-12">
+      <div class="col-md-12">
 
-				<footer class="site-footer" id="colophon">
+        <footer class="site-footer" id="colophon">
 
-					<div class="site-info">
+          <div class="site-info">
 
-						<?php understrap_site_info(); ?>
+            <a href="http://wordpress.org/">Powered by WordPress</a>
+            <span class="sep"> | </span>
+            <a href="https://github.com/nierdz/mad-rabbit.com/">Site web : Open source</a>
+            <span class="sep"> | </span>
+            <a href="https://github.com/nierdz/infra/">Infrastructure : Open source</a>
 
-					</div><!-- .site-info -->
+          </div><!-- .site-info -->
 
-				</footer><!-- #colophon -->
+        </footer><!-- #colophon -->
 
-			</div><!--col end -->
+      </div><!--col end -->
 
-		</div><!-- row end -->
+    </div><!-- row end -->
 
-	</div><!-- container end -->
+  </div><!-- container end -->
 
 </div><!-- wrapper end -->
 
