@@ -2900,7 +2900,7 @@ input[type="button"].btn-block {
   flex-direction: column;
   align-items: flex-start;
   justify-content: center; }
-  
+
   .btn-group-vertical > .btn,
   .wpcf7 .btn-group-vertical > input[type=submit],
   .btn-group-vertical > .btn-group {
