@@ -1,12 +1,9 @@
 version: '3'
 
-networks:
-  madrabbit-network:
-
 services:
-  madrabbit-mysql:
-    container_name: madrabbit-mysql
-    image: nierdz/mysql:1.1.1
+  db:
+    container_name: db
+    image: nierdz/mysql:1.1.5
     restart: always
     command: >
       --default-authentication-plugin=mysql_native_password
@@ -21,11 +18,14 @@ services:
       MYSQL_DATABASE: ${MYSQL_NAME}
       MYSQL_USER: ${MYSQL_USER}
       MYSQL_PASSWORD: ${MYSQL_PASSWORD}
-    networks:
-      - madrabbit-network
+    healthcheck:
+      test: ["CMD-SHELL", "mysqladmin -u root -p${MYSQL_ROOT_PASSWORD} ping || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
 
-  madrabbit-nginx-php:
-    container_name: madrabbit-nginx-php
+  wordpress:
+    container_name: wordpress
     build:
       context: ./
     restart: always
@@ -44,6 +44,4 @@ services:
       TMTK_PASSWORD: ${TMTK_PASSWORD}
       WP_HOME: ${WP_HOME}
     depends_on:
-      - madrabbit-mysql
-    networks:
-      - madrabbit-network
+      - db
