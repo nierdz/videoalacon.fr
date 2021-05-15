@@ -15,6 +15,11 @@ repos:
       - id: trailing-whitespace
   - repo: local
     hooks:
+      - id: docker-hadolint
+        name: Run hadolint with docker
+        language: docker_image
+        entry: hadolint/hadolint hadolint --ignore DL3059
+        files: Dockerfile
       - id: docker-shell-lint
         name: Run shellcheck with docker
         language: docker_image

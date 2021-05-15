@@ -35,3 +35,6 @@ mkcert: ## Create certs if needed
 	else \
 		mkcert "mad-rabbit.local"; \
 	fi; \
+
+tests:
+	pre-commit run --all-files
