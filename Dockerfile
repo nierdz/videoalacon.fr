@@ -31,9 +31,9 @@ RUN docker-php-ext-install \
 
 RUN mkdir /var/www/bedrock
 WORKDIR /var/www/bedrock
-RUN composer create-project --no-dev --no-scripts roots/bedrock /var/www/bedrock 1.15.2 && \
-    composer require --update-no-dev roots/wordpress:5.6.2 && \
-    composer require --update-no-dev wpackagist-plugin/flush-opcache:3.1.0 && \
+RUN composer create-project --no-dev --no-scripts roots/bedrock /var/www/bedrock 1.15.3 && \
+    composer require --update-no-dev roots/wordpress:5.7.2 && \
+    composer require --update-no-dev wpackagist-plugin/flush-opcache:4.1.0 && \
     chown -R www-data:www-data /var/www/bedrock
 COPY .env .env
 COPY config/environments config/environments/
