@@ -20,7 +20,7 @@ $(VIRTUALENV_DIR):
 $(VIRTUALENV_DIR)/bin/pre-commit: $(MAIN_DIR)/requirements.txt
 	pip install -r $(MAIN_DIR)/requirements.txt
 	@touch '$(@)'
-	nodeenv -p
+	nodeenv --python-virtualenv --node=15.14.0
 
 pre-commit-install: ## Install pre-commit hooks
 	pre-commit install
