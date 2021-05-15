@@ -15,8 +15,8 @@ check_top_menu=$(docker exec \
   madrabbit-php-fpm \
   wp menu list \
   --fields=name \
-  --format=json \
-  | jq -r '.[] | select(.name=="Top Menu") | .name')
+  --format=json |
+  jq -r '.[] | select(.name=="Top Menu") | .name')
 if [[ "$check_top_menu" != "Top Menu" ]]; then
   docker exec \
     -u www-data \
@@ -35,16 +35,16 @@ for category in Animaux Étonnant Fail Marrant Rage Techno WTF; do
   if ! docker exec \
     -u www-data \
     madrabbit-php-fpm \
-      wp term get category \
-        --by=slug \
-        --fields=id \
-        "$category"; then
+    wp term get category \
+    --by=slug \
+    --fields=id \
+    "$category"; then
     category_id=$(docker exec \
       -u www-data \
       madrabbit-php-fpm \
-        wp term create category \
-          "$category" \
-          --porcelain)
+      wp term create category \
+      "$category" \
+      --porcelain)
     docker exec \
       -u www-data \
       madrabbit-php-fpm \
@@ -70,7 +70,7 @@ while read -r post_json; do
   while read -r tag_json; do
     tag_slug=$(echo "$tag_json" | jq --raw-output '.slug')
     tags_array+=("$tag_slug")
-  done <<< "$tags_json"
+  done <<<"$tags_json"
   html=$(curl -s "$link")
   #video_url=$(echo "$html" | sed -nE '/og:video/s/.*content=\"(.*\.mp4)\" \/>/\1/p')
   image_id=$(echo "$html" | sed -nE '/vthumbs/s/.*vthumbs\/([0-9]{10})\.jpg.*/\1/p')
@@ -79,21 +79,21 @@ while read -r post_json; do
   post_id=$(docker exec \
     -u www-data \
     madrabbit-php-fpm \
-      wp post create \
-        --post_date="$date" \
-        --tags_input="$tags" \
-        --post_author=1 \
-        --post_content="$content" \
-        --post_title="$title" \
-        --post_status="publish" \
-        --post_category="$category" \
-        --porcelain)
+    wp post create \
+    --post_date="$date" \
+    --tags_input="$tags" \
+    --post_author=1 \
+    --post_content="$content" \
+    --post_title="$title" \
+    --post_status="publish" \
+    --post_category="$category" \
+    --porcelain)
   docker exec \
     -u www-data \
     madrabbit-php-fpm \
-      wp media import \
-        "https://media.mad-rabbit.com/vthumbs/$image_id.jpg" \
-        --post_id="$post_id" \
-        --title="$title" \
-        --featured_image
-done <<< "$posts_json"
+    wp media import \
+    "https://media.mad-rabbit.com/vthumbs/$image_id.jpg" \
+    --post_id="$post_id" \
+    --title="$title" \
+    --featured_image
+done <<<"$posts_json"

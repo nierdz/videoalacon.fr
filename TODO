@@ -1,2 +1,2 @@
-- refaire le script docker-entrypoint.sh au propre 
+- refaire le script docker-entrypoint.sh au propre
 - aller cherry-pick les trucs cools (tuning php, nginx) de https://github.com/bdossantos/dockerfiles/tree/master/dockerfiles/php-lol
