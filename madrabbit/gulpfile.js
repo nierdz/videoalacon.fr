@@ -127,7 +127,7 @@ gulp.task( 'styles', function( callback ) {
 /**
  * Watches .scss, .js and image files for changes.
  * On change re-runs corresponding build task.
- * 
+ *
  * Run: gulp watch
  */
 gulp.task( 'watch', function() {
@@ -171,7 +171,7 @@ gulp.task(
 /**
  * Starts watcher with browser-sync.
  * Browser-sync reloads page automatically on your browser.
- * 
+ *
  * Run: gulp watch-bs
  */
 gulp.task( 'watch-bs', gulp.parallel( 'browser-sync', 'watch' ) );
