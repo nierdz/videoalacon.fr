@@ -12,7 +12,7 @@ ROOT_URL="https://mad-rabbit.com"
 # Create menu
 check_top_menu=$(docker exec \
   -u www-data \
-  madrabbit-php-fpm \
+  wordpress \
   wp menu list \
   --fields=name \
   --format=json |
@@ -20,12 +20,12 @@ check_top_menu=$(docker exec \
 if [[ "$check_top_menu" != "Top Menu" ]]; then
   docker exec \
     -u www-data \
-    madrabbit-php-fpm \
+    wordpress \
     wp menu create \
     "Top Menu"
   docker exec \
     -u www-data \
-    madrabbit-php-fpm \
+    wordpress \
     wp menu location assign \
     top-menu primary
 fi
@@ -34,20 +34,20 @@ fi
 for category in Animaux Étonnant Fail Marrant Rage Techno WTF; do
   if ! docker exec \
     -u www-data \
-    madrabbit-php-fpm \
+    wordpress \
     wp term get category \
     --by=slug \
     --fields=id \
     "$category"; then
     category_id=$(docker exec \
       -u www-data \
-      madrabbit-php-fpm \
+      wordpress \
       wp term create category \
       "$category" \
       --porcelain)
     docker exec \
       -u www-data \
-      madrabbit-php-fpm \
+      wordpress \
       wp menu item add-term \
       top-menu category \
       "$category_id"
@@ -78,7 +78,7 @@ while read -r post_json; do
   tags=${tags:1}
   post_id=$(docker exec \
     -u www-data \
-    madrabbit-php-fpm \
+    wordpress \
     wp post create \
     --post_date="$date" \
     --tags_input="$tags" \
@@ -90,7 +90,7 @@ while read -r post_json; do
     --porcelain)
   docker exec \
     -u www-data \
-    madrabbit-php-fpm \
+    wordpress \
     wp media import \
     "https://media.mad-rabbit.com/vthumbs/$image_id.jpg" \
     --post_id="$post_id" \
