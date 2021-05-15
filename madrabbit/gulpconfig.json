@@ -1,9 +1,4 @@
 {
-	"browserSyncOptions": {
-		"proxy": "https://mad-rabbit.local",
-		"notify": false,
-		"files": ["./css/*.min.css", "./js/*.min.js", "./**/*.php"]
-	},
 	"paths": {
 		"js": "./js",
 		"css": "./css",
