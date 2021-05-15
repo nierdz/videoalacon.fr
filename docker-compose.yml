@@ -36,6 +36,9 @@ services:
       - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
       - ./nginx/conf:/etc/nginx/conf:ro
       - ./nginx/mad-rabbit.com.conf:/etc/nginx/conf.d/mad-rabbit.com.conf:ro
+      - ./php/dev/zzz-hardening.ini:/usr/local/etc/php/conf.d/zzz-hardening.ini
+      - ./php/dev/zzz-opcache.ini:/usr/local/etc/php/conf.d/zzz-opcache.ini
+      - ./php/dev/zzz-tuning.ini:/usr/local/etc/php/conf.d/zzz-tuning.ini
       - ./mad-rabbit.local-key.pem:/etc/nginx/mad-rabbit.local-key.pem:ro
       - ./mad-rabbit.local.pem:/etc/nginx/mad-rabbit.local.pem:ro
       - ./madrabbit:/var/www/bedrock/web/app/themes/madrabbit:rw
