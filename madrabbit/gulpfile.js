@@ -6,10 +6,9 @@ var babel = require( 'gulp-babel' );
 var postcss = require( 'gulp-postcss' );
 var rename = require( 'gulp-rename' );
 var concat = require( 'gulp-concat' );
-var uglify = require( 'gulp-uglify' );
 var imagemin = require( 'gulp-imagemin' );
 var sourcemaps = require( 'gulp-sourcemaps' );
-var browserSync = require( 'browser-sync' ).create();
+//var browserSync = require( 'browser-sync' ).create();
 var del = require( 'del' );
 var cleanCSS = require( 'gulp-clean-css' );
 var autoprefixer = require( 'autoprefixer' );
@@ -150,31 +149,12 @@ gulp.task( 'watch', function() {
 } );
 
 /**
- * Starts browser-sync task for starting the server.
- *
- * Run: gulp browser-sync
- */
-gulp.task( 'browser-sync', function() {
-  browserSync.init( cfg.browserSyncOptions );
-} );
-
-/**
  * Ensures the 'imagemin' task is complete before reloading browsers
  */
 gulp.task(
   'imagemin-watch',
-  gulp.series( 'imagemin', function() {
-    browserSync.reload();
-  } )
+  gulp.series( 'imagemin' )
 );
-
-/**
- * Starts watcher with browser-sync.
- * Browser-sync reloads page automatically on your browser.
- *
- * Run: gulp watch-bs
- */
-gulp.task( 'watch-bs', gulp.parallel( 'browser-sync', 'watch' ) );
 
 // Run:
 // gulp scripts.
@@ -197,7 +177,6 @@ gulp.task( 'scripts', function() {
     .src( scripts, { allowEmpty: true } )
     .pipe( babel( { presets: ['@babel/preset-env'] } ) )
     .pipe( concat( 'theme.min.js' ) )
-    .pipe( uglify() )
     .pipe( gulp.dest( paths.js ) );
 
   return gulp
