@@ -234,82 +234,10 @@ gulp.task( 'clean-vendor-assets', function() {
   ] );
 } );
 
-/**
- * Deletes all files inside the dist folder and the folder itself.
- *
- * Run: gulp clean-dist
- */
-gulp.task( 'clean-dist', function() {
-  return del( paths.dist );
-} );
-
-// Run
-// gulp dist
-// Copies the files to the dist folder for distribution as simple theme
-gulp.task(
-  'dist',
-  gulp.series( [ 'clean-dist' ], function() {
-    return gulp
-      .src(
-        [
-          '**/*',
-          '!' + paths.node,
-          '!' + paths.node + '/**',
-          '!' + paths.dev,
-          '!' + paths.dev + '/**',
-          '!' + paths.dist,
-          '!' + paths.dist + '/**',
-          '!' + paths.distprod,
-          '!' + paths.distprod + '/**',
-          '!' + paths.sass,
-          '!' + paths.sass + '/**',
-          '!' + paths.composer,
-          '!' + paths.composer + '/**',
-          '!+(readme|README).+(txt|md)',
-          '!*.+(dist|json|js|lock|xml)',
-          '!CHANGELOG.md',
-        ],
-        { buffer: true }
-      )
-      .pipe( gulp.dest( paths.dist ) );
-  } )
-);
-
-/**
- * Deletes all files inside the dist-product folder and the folder itself.
- *
- * Run: gulp clean-dist-product
- */
-gulp.task( 'clean-dist-product', function() {
-  return del( paths.distprod );
-} );
-
-// Run
-// gulp dist-product
-// Copies the files to the /dist-prod folder for distribution as theme with all assets
-gulp.task(
-  'dist-product',
-  gulp.series( [ 'clean-dist-product' ], function() {
-    return gulp
-      .src( [
-        '**/*',
-        '!' + paths.node,
-        '!' + paths.node + '/**',
-        '!' + paths.composer,
-        '!' + paths.composer + '/**',
-        '!' + paths.dist,
-        '!' + paths.dist + '/**',
-        '!' + paths.distprod,
-        '!' + paths.distprod + '/**',
-      ] )
-      .pipe( gulp.dest( paths.distprod ) );
-  } )
-);
-
 // Run
 // gulp compile
-// Compiles the styles and scripts and runs the dist task
-gulp.task( 'compile', gulp.series( 'styles', 'scripts', 'dist' ) );
+// Compiles the styles and scripts
+gulp.task( 'compile', gulp.series( 'styles', 'scripts' ) );
 
 // Run:
 // gulp

@@ -8,8 +8,6 @@
 		"sass": "./sass",
 		"node": "./node_modules",
 		"composer": "./vendor",
-		"dev": "./src",
-		"dist": "./dist",
-		"distprod": "./dist-product"
+		"dev": "./src"
 	}
 }
