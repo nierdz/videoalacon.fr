@@ -112,10 +112,6 @@ function madrabbit_setup() {
 
   // Add support for responsive embedded content.
   add_theme_support( 'responsive-embeds' );
-
-  // Check and setup theme default settings.
-  madrabbit_setup_theme_default_settings();
-
 }
 
 
