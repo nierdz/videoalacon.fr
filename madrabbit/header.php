@@ -80,6 +80,8 @@ defined( 'ABSPATH' ) || exit;
         ?>
       </div><!-- .container -->
 
+     <?php get_search_form(); ?>
+
     </nav><!-- .site-navigation -->
 
   </div><!-- #wrapper-navbar end -->
