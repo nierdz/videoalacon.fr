@@ -22,7 +22,7 @@ defined( 'ABSPATH' ) || exit;
   <link rel="icon" type="image/png" href="<?php echo site_url(); ?>/images/favicons/favicon-32x32.png" sizes="32x32">
   <link rel="icon" type="image/png" href="<?php echo site_url(); ?>/images/favicons/favicon-16x16.png" sizes="16x16">
   <link rel="mask-icon" href="<?php echo site_url(); ?>/images/favicons/safari-pinned-tab.svg" color="#333333">
-  <link rel="shortcut icon" href="<?php echo site_url(); ?>/images/favicons/favicon.ico>
+  <link rel="shortcut icon" href="<?php echo site_url(); ?>/images/favicons/favicon.ico">
   <meta name="msapplication-config" content="<?php echo site_url(); ?>/images/favicons/browserconfig.xml">
   <?php if(is_single()) {
   $video_timestamp = get_post_meta( $post->ID, 'video_timestamp', true ); ?>
