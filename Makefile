@@ -40,7 +40,7 @@ $(VENDOR_DIR):
 $(NPM_DIR)/.bin/sass: $(THEME_DIR)/package.json
 	cd $(THEME_DIR); \
 	npm install; \
-	cp -af ./node_modules/{bootstrap,font-awesome}/ ./vendor
+	cp -af ./node_modules/{bootstrap,font-awesome,video.js}/ ./vendor
 	@touch '$(@)'
 
 install-npm-packages: $(VENDOR_DIR) $(NPM_DIR)/.bin/sass ## Install npm packages
