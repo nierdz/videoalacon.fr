@@ -37,19 +37,13 @@ install-pip-packages: $(VIRTUALENV_DIR) $(VIRTUALENV_DIR)/bin/pre-commit ## Inst
 $(VENDOR_DIR):
 	mkdir $(VENDOR_DIR)
 
-$(CSS_DIR):
-	mkdir $(CSS_DIR)
-
-$(JS_DIR):
-	mkdir $(JS_DIR)
-
 $(NPM_DIR)/.bin/sass: $(THEME_DIR)/package.json
 	cd $(THEME_DIR); \
 	npm install; \
 	cp -af ./node_modules/{bootstrap,font-awesome,video.js}/ ./vendor
 	@touch '$(@)'
 
-install-npm-packages: $(VENDOR_DIR) $(CSS_DIR) $(JS_DIR) $(NPM_DIR)/.bin/sass ## Install npm packages
+install-npm-packages: $(VENDOR_DIR) $(NPM_DIR)/.bin/sass ## Install npm packages
 
 install: install-pip-packages install-npm-packages
 
@@ -67,20 +61,24 @@ tests:
 compile-assets: $(CSS_DIR)/theme.css $(CSS_DIR)/theme.prefixed.css $(CSS_DIR)/theme.min.css $(JS_DIR)/theme.min.js ## Compile assets
 
 clean: ## Remove all generated files
-	rm -f $(CSS_DIR)/*.css
-	rm -f $(JS_DIR)/*.js
+	rm -rf $(VIRTUALENV_DIR) $(NPM_DIR)
+	rm -f mad-rabbit.local-key.pem mad-rabbit.local.pem
+	rm -rf $(CSS_DIR) $(JS_DIR)
 	rm -rf $(VENDOR_DIR)
 
 $(CSS_DIR)/theme.css:
-	npx sass --style=expanded --embed-source-map $(SCSS_DIR)/theme.scss $(CSS_DIR)/theme.css
+	mkdir -p $(@D)
+	cd $(THEME_DIR); npx sass --style=expanded --embed-source-map $(SCSS_DIR)/theme.scss $(CSS_DIR)/theme.css
 
 $(CSS_DIR)/theme.prefixed.css:
-	npx postcss $(CSS_DIR)/theme.css --use autoprefixer --output  $(CSS_DIR)/theme.prefixed.css
+	cd $(THEME_DIR); npx postcss $(CSS_DIR)/theme.css --use autoprefixer --output  $(CSS_DIR)/theme.prefixed.css
 
 $(CSS_DIR)/theme.min.css:
-	npx cleancss $(CSS_DIR)/theme.prefixed.css --output $(CSS_DIR)/theme.min.css --source-map-inline-sources
+	cd $(THEME_DIR); npx cleancss $(CSS_DIR)/theme.prefixed.css --output $(CSS_DIR)/theme.min.css --source-map-inline-sources
 
 $(JS_DIR)/theme.min.js:
+	mkdir -p $(@D)
+	cd $(THEME_DIR); \
 	npx uglifyjs \
 		$(VENDOR_DIR)/bootstrap/dist/js/bootstrap.bundle.js \
 		$(VENDOR_DIR)/video.js/dist/video.js \
@@ -88,8 +86,7 @@ $(JS_DIR)/theme.min.js:
 		--compress
 
 watch: ## Watch for files changes and compile them if necessary
-	npx sass --watch --style=expanded --embed-source-map $(SCSS_DIR)/theme.scss $(CSS_DIR)/theme.css &
-	npx postcss --verbose --watch $(CSS_DIR)/theme.css --use autoprefixer --output  $(CSS_DIR)/theme.min.css
-
+	cd $(THEME_DIR); npx sass --watch --style=expanded --embed-source-map $(SCSS_DIR)/theme.scss $(CSS_DIR)/theme.css &
+	cd $(THEME_DIR); npx postcss --verbose --watch $(CSS_DIR)/theme.css --use autoprefixer --output  $(CSS_DIR)/theme.min.css
 
 .PHONY: help pre-commit-install install-pip-packages install-npm-packages install mkcert tests compile-assets clean watch
