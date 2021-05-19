@@ -49,10 +49,10 @@ install: install-pip-packages install-npm-packages
 
 mkcert: ## Create certs if needed
 	$(info --> Create certs if needed)
-	@if [[ -e mad-rabbit.local-key.pem ]] && [[ -e mad-rabbit.local.pem ]]; then \
-		openssl verify -CAfile ~/.local/share/mkcert/rootCA.pem mad-rabbit.local.pem; \
+	if [[ -e mad-rabbit.local+1-key.pem ]] && [[ -e mad-rabbit.local+1.pem ]]; then \
+		openssl verify -CAfile ~/.local/share/mkcert/rootCA.pem mad-rabbit.local+1.pem; \
 	else \
-		mkcert "mad-rabbit.local"; \
+		mkcert "mad-rabbit.local" "media.mad-rabbit.local"; \
 	fi; \
 
 tests:
@@ -62,7 +62,7 @@ compile-assets: $(CSS_DIR)/theme.css $(CSS_DIR)/theme.prefixed.css $(CSS_DIR)/th
 
 clean: ## Remove all generated files
 	rm -rf $(VIRTUALENV_DIR) $(NPM_DIR)
-	rm -f mad-rabbit.local-key.pem mad-rabbit.local.pem
+	rm -f mad-rabbit.local+1-key.pem mad-rabbit.local+1.pem
 	rm -rf $(CSS_DIR) $(JS_DIR)
 	rm -rf $(VENDOR_DIR)
 
