@@ -7,6 +7,8 @@ set -o nounset
 DEBUG=${DEBUG:=0}
 [[ $DEBUG -eq 1 ]] && set -o xtrace
 
+chown -R 33:33 /var/www/bedrock/web/app/uploads
+
 if [[ -n "$(ls -A /docker-entrypoint.d/)" ]]; then
   echo "$0: /docker-entrypoint.d/ is not empty, will attempt to perform configuration"
 
