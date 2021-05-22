@@ -10,6 +10,7 @@ VENDOR_DIR := $(THEME_DIR)/vendor
 SCSS_DIR := $(THEME_DIR)/scss
 CSS_DIR := $(THEME_DIR)/css
 JS_DIR := $(THEME_DIR)/js
+FIXTURES_FILE := $(MAIN_DIR)/fixtures.xml
 
 .DEFAULT_GOAL := help
 .SHELLFLAGS := -eu -o pipefail -c
@@ -90,3 +91,6 @@ watch: ## Watch for files changes and compile them if necessary
 	cd $(THEME_DIR); npx postcss --verbose --watch $(CSS_DIR)/theme.css --use autoprefixer --output  $(CSS_DIR)/theme.min.css
 
 .PHONY: help pre-commit-install install-pip-packages install-npm-packages install mkcert tests compile-assets clean watch
+
+fixtures: ## Insert post with images and videos
+	$(MAIN_DIR)/scripts/fixtures.sh
