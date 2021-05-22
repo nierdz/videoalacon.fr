@@ -55,7 +55,7 @@ mkcert: ## Create certs if needed
 		mkcert "mad-rabbit.local" "media.mad-rabbit.local"; \
 	fi; \
 
-tests:
+tests: ## Run all tests
 	pre-commit run --all-files
 
 compile-assets: $(CSS_DIR)/theme.css $(CSS_DIR)/theme.prefixed.css $(CSS_DIR)/theme.min.css $(JS_DIR)/theme.min.js ## Compile assets
