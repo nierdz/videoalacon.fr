@@ -46,7 +46,7 @@ $(NPM_DIR)/.bin/sass: $(THEME_DIR)/package.json
 
 install-npm-packages: $(VENDOR_DIR) $(NPM_DIR)/.bin/sass ## Install npm packages
 
-install: install-pip-packages install-npm-packages
+install: install-pip-packages install-npm-packages mkcert compile-assets
 
 mkcert: ## Create certs if needed
 	$(info --> Create certs if needed)
