@@ -36,52 +36,37 @@ defined( 'ABSPATH' ) || exit;
 <body <?php body_class(); ?> itemscope itemtype="http://schema.org/WebSite">
 <div class="site" id="page">
 
-  <!-- ******************* The Navbar Area ******************* -->
   <div id="wrapper-navbar">
 
-    <a class="skip-link sr-only sr-only-focusable" href="#content">Voir la vidéo</a>
+    <nav id="main-nav" class="navbar navbar-expand-lg navbar-dark bg-dark" aria-labelledby="main-nav-label">
 
-    <nav id="main-nav" class="navbar navbar-expand-md navbar-dark bg-primary" aria-labelledby="main-nav-label">
+      <a class="navbar-brand" rel="home" href="<?php echo esc_url( home_url( '/' ) ); ?>" title="<?php echo esc_attr( get_bloginfo( 'name', 'display' ) ); ?>" itemprop="url">
+        <img src="/images/banner-72.png" width="50" height="50" class="d-inline-block align-top" alt="<?php echo esc_attr( get_bloginfo( 'name', 'display' ) ); ?>">
+      </a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
 
-      <h2 id="main-nav-label" class="sr-only">Main Navigation</h2>
+      <?php
+      $madrabbit_header_search_form = '';
+      $madrabbit_header_search_form .= '<form class="form-inline my-2 my-lg-0" method="get" id="searchform" action="' . esc_url( home_url( '/' ) ) . '" role="search">';
+      $madrabbit_header_search_form .= '  <input class="form-control mr-sm-2" id="s" name="s" type="search" placeholder="Recherche" value="' . get_search_query()  . '">';
+      $madrabbit_header_search_form .= '  <button class="btn btn-outline-success my-2 my-sm-0" type="submit" id="searchsubmit" name="submit">Rechercher</button>';
+      $madrabbit_header_search_form .= '</form>';
+      wp_nav_menu(
+        array(
+          'theme_location'  => 'primary',
+          'depth'           => 1,
+          'container_class' => 'collapse navbar-collapse',
+          'container_id'    => 'navbarSupportedContent',
+          'menu_class'      => 'navbar-nav mr-auto',
+          'fallback_cb'     => 'WP_Bootstrap_Navwalker::fallback',
+          'walker'          => new WP_Bootstrap_Navwalker(),
+          'items_wrap'      => '<ul id="%1$s" class="%2$s">%3$s</ul>' . $madrabbit_header_search_form,
+        )
+      );
+      ?>
 
-      <div class="container">
-
-          <!-- Your site title as branding in the menu -->
-
-            <?php if ( is_front_page() && is_home() ) : ?>
-
-              <h1 class="navbar-brand mb-0"><a rel="home" href="<?php echo esc_url( home_url( '/' ) ); ?>" title="<?php echo esc_attr( get_bloginfo( 'name', 'display' ) ); ?>" itemprop="url"><?php bloginfo( 'name' ); ?></a></h1>
-
-            <?php else : ?>
-
-              <a class="navbar-brand" rel="home" href="<?php echo esc_url( home_url( '/' ) ); ?>" title="<?php echo esc_attr( get_bloginfo( 'name', 'display' ) ); ?>" itemprop="url"><?php bloginfo( 'name' ); ?></a>
-
-            <?php endif; ?>
-
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="<?php esc_attr_e( 'Toggle navigation', 'understrap' ); ?>">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-
-        <!-- The WordPress Menu goes here -->
-        <?php
-        wp_nav_menu(
-          array(
-            'menu'            => 'Top Menu',
-            'theme_location'  => 'primary',
-            'container_class' => 'collapse navbar-collapse',
-            'container_id'    => 'navbarNavDropdown',
-            'menu_class'      => 'navbar-nav ml-auto',
-            'menu_id'         => 'main-menu',
-            'depth'           => 1,
-            'walker'          => new Understrap_WP_Bootstrap_Navwalker()
-          )
-        );
-        ?>
-      </div><!-- .container -->
-
-     <?php get_search_form(); ?>
-
-    </nav><!-- .site-navigation -->
+    </nav><!-- .navbar -->
 
   </div><!-- #wrapper-navbar end -->

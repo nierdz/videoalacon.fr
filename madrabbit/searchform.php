@@ -9,14 +9,10 @@
 defined( 'ABSPATH' ) || exit;
 ?>
 
-<form method="get" id="searchform" action="<?php echo esc_url( home_url( '/' ) ); ?>" role="search">
+<form class="form-inline" method="get" id="searchform" action="<?php echo esc_url( home_url( '/' ) ); ?>" role="search">
   <label class="sr-only" for="s">search</label>
-  <div class="input-group">
-    <input class="field form-control" id="s" name="s" type="text"
-      value="<?php the_search_query(); ?>">
-    <span class="input-group-append">
-      <input class="submit btn btn-primary" id="searchsubmit" name="submit" type="submit"
-      value="Recherche">
-    </span>
-  </div>
+  <input class="form-control mr-sm-2" id="s" name="s" type="text"
+    value="<?php the_search_query(); ?>">
+  <input class="btn btn-outline-light my-2" id="searchsubmit" name="submit" type="submit"
+    value="Recherche">
 </form>
