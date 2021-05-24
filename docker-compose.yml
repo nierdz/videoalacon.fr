@@ -49,3 +49,5 @@ services:
       WP_HOME: ${WP_HOME}
     depends_on:
       - db
+    extra_hosts:
+      - "mad-rabbit.local:127.0.0.1"
