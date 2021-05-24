@@ -17,6 +17,7 @@ RUN apt-get update && \
     apt-get install -y --no-install-recommends --no-install-suggests \
       git \
       less \
+      libmagickwand-dev \
       libpng-dev \
       libzip-dev \
       nginx \
@@ -24,8 +25,13 @@ RUN apt-get update && \
       unzip \
     && rm -rf /var/lib/apt/lists/* \
     && apt-get clean
+RUN pecl install imagick && \
+    docker-php-ext-enable imagick
 RUN docker-php-ext-install \
+      bcmath \
       gd \
+      exif \
+      intl \
       mysqli \
       zip
 
