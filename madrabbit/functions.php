@@ -16,7 +16,7 @@ $understrap_includes = array(
   '/extras.php',                          // Custom functions that act independently of the theme templates.
   '/custom-comments.php',                 // Custom Comments file.
   '/jetpack.php',                         // Load Jetpack compatibility file.
-  '/class-wp-bootstrap-navwalker.php',    // Load custom WordPress nav walker. Trying to get deeper navigation? Check out: https://github.com/understrap/understrap/issues/567.
+  '/class-wp-bootstrap-navwalker.php',    // Load custom WordPress nav walker.
 );
 
 foreach ( $understrap_includes as $file ) {
