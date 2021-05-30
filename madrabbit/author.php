@@ -19,9 +19,6 @@ get_header();
 
     <div class="row">
 
-      <!-- Do the left sidebar check -->
-      <?php get_template_part( 'global-templates/left-sidebar-check' ); ?>
-
       <main class="site-main" id="main">
 
         <header class="page-header author-header">
@@ -90,9 +87,6 @@ get_header();
 
       <!-- The pagination component -->
       <?php understrap_pagination(); ?>
-
-      <!-- Do the right sidebar check -->
-      <?php get_template_part( 'global-templates/right-sidebar-check' ); ?>
 
     </div> <!-- .row -->
 

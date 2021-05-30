@@ -1,4 +1,8 @@
 mysql
-mad-rabbit.local-key.pem
-mad-rabbit.local.pem
-madrabbit/node_modules
+uploads
+mad-rabbit.local+1-key.pem
+mad-rabbit.local+1.pem
+node_modules
+vendor
+madrabbit/css
+madrabbit/js
