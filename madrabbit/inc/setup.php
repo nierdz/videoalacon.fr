@@ -67,4 +67,10 @@ function madrabbit_setup() {
   update_option( 'large_size_w', 1024 );
   update_option( 'large_size_h', 1024 );
 
+  /*
+   * Remove comments
+   */
+  add_filter('comments_open', '__return_false', 20, 2);
+  add_filter('pings_open', '__return_false', 20, 2);
+
 }
