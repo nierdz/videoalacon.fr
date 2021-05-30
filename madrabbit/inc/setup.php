@@ -12,11 +12,6 @@ defined( 'ABSPATH' ) || exit;
 add_filter('show_admin_bar', '__return_false');
 remove_action('init', 'wp_admin_bar_init');
 
-// Set the content width based on the theme's design and stylesheet.
-//if ( ! isset( $content_width ) ) {
-//  $content_width = 640; /* pixels */
-//}
-
 add_action( 'after_setup_theme', 'madrabbit_setup' );
 
 /**
@@ -27,9 +22,6 @@ add_action( 'after_setup_theme', 'madrabbit_setup' );
  * as indicating support for post thumbnails.
  */
 function madrabbit_setup() {
-
-  // Add default posts and comments RSS feed links to head.
-  add_theme_support( 'automatic-feed-links' );
 
   /*
    * Let WordPress manage the document title.
@@ -76,84 +68,9 @@ function madrabbit_setup() {
   update_option( 'large_size_h', 1024 );
 
   /*
-   * Adding support for Widget edit icons in customizer
+   * Remove comments
    */
-  add_theme_support( 'customize-selective-refresh-widgets' );
+  add_filter('comments_open', '__return_false', 20, 2);
+  add_filter('pings_open', '__return_false', 20, 2);
 
-  /*
-   * Enable support for Post Formats.
-   * See http://codex.wordpress.org/Post_Formats
-   */
-  add_theme_support(
-    'post-formats',
-    array(
-      'aside',
-      'image',
-      'video',
-      'quote',
-      'link',
-    )
-  );
-
-  // Set up the WordPress core custom background feature.
-  add_theme_support(
-    'custom-background',
-    apply_filters(
-      'understrap_custom_background_args',
-      array(
-        'default-color' => 'ffffff',
-        'default-image' => '',
-      )
-    )
-  );
-
-  // Set up the WordPress Theme logo feature.
-  add_theme_support( 'custom-logo' );
-
-  // Add support for responsive embedded content.
-  add_theme_support( 'responsive-embeds' );
-
-  // Check and setup theme default settings.
-  madrabbit_setup_theme_default_settings();
-
-}
-
-
-add_filter( 'excerpt_more', 'understrap_custom_excerpt_more' );
-
-if ( ! function_exists( 'understrap_custom_excerpt_more' ) ) {
-  /**
-   * Removes the ... from the excerpt read more link
-   *
-   * @param string $more The excerpt.
-   *
-   * @return string
-   */
-  function understrap_custom_excerpt_more( $more ) {
-    if ( ! is_admin() ) {
-      $more = '';
-    }
-    return $more;
-  }
-}
-
-add_filter( 'wp_trim_excerpt', 'understrap_all_excerpts_get_more_link' );
-
-if ( ! function_exists( 'understrap_all_excerpts_get_more_link' ) ) {
-  /**
-   * Adds a custom read more link to all excerpts, manually or automatically generated
-   *
-   * @param string $post_excerpt Posts's excerpt.
-   *
-   * @return string
-   */
-  function understrap_all_excerpts_get_more_link( $post_excerpt ) {
-    if ( ! is_admin() ) {
-      $post_excerpt = $post_excerpt . ' [...]<p><a class="btn btn-secondary understrap-read-more-link" href="' . esc_url( get_permalink( get_the_ID() ) ) . '">' . __(
-        'Read More...',
-        'understrap'
-      ) . '</a></p>';
-    }
-    return $post_excerpt;
-  }
 }
