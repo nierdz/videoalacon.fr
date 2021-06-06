@@ -102,46 +102,15 @@ a.skip-link {
 	white-space: nowrap; // prevent links from randomly breaking onto new lines
 	background: none; // For `<button>`s
 	border: 0; // For `<button>`s
-
-	@include hover-focus {
-		color: $dropdown-link-hover-color !important;
-		text-decoration: none;
-		background-color: $dropdown-link-hover-bg;
-	}
-
-	&.active,
-	&:active {
-		color: $dropdown-link-active-color !important;
-		text-decoration: none;
-		background-color: $dropdown-link-active-bg;
-	}
-
-	&.disabled,
-	&:disabled {
-		color: $dropdown-link-disabled-color !important;
-		background-color: transparent;
-
-		// Remove CSS gradients if they're enabled
-		@if $enable-gradients {
-			background-image: none;
-		}
-	}
 }
 
 .navbar-light .navbar-brand a {
 	color: $navbar-light-active-color;
 
-	@include hover-focus {
-		color: $navbar-light-active-color;
-	}
 }
 
 .navbar-dark .navbar-brand a {
 	color: $navbar-dark-active-color;
-
-	@include hover-focus {
-		color: $navbar-dark-active-color;
-	}
 }
 
 .navbar h1 {

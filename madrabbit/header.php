@@ -38,20 +38,21 @@ defined( 'ABSPATH' ) || exit;
 
   <div id="wrapper-navbar">
 
-    <nav id="main-nav" class="navbar navbar-expand-lg navbar-dark bg-dark" aria-labelledby="main-nav-label">
+    <nav id="main-nav" class="navbar navbar-expand-md navbar-dark bg-dark">
+      <div class="container-fluid">
 
-      <a class="navbar-brand" rel="home" href="<?php echo esc_url( home_url( '/' ) ); ?>" title="<?php echo esc_attr( get_bloginfo( 'name', 'display' ) ); ?>" itemprop="url">
-        <img src="/images/banner-72.png" width="50" height="50" class="d-inline-block align-top" alt="<?php echo esc_attr( get_bloginfo( 'name', 'display' ) ); ?>">
-      </a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
+        <a class="navbar-brand" rel="home" href="<?php echo esc_url( home_url( '/' ) ); ?>" title="<?php echo esc_attr( get_bloginfo( 'name', 'display' ) ); ?>" itemprop="url">
+          <img src="/images/banner-72.png" width="50" height="50" alt="<?php echo esc_attr( get_bloginfo( 'name', 'display' ) ); ?>">
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
 
       <?php
       $madrabbit_header_search_form = '';
-      $madrabbit_header_search_form .= '<form class="form-inline my-2 my-lg-0" method="get" id="searchform" action="' . esc_url( home_url( '/' ) ) . '" role="search">';
-      $madrabbit_header_search_form .= '  <input class="form-control mr-sm-2" id="s" name="s" type="search" placeholder="Recherche" value="' . get_search_query()  . '">';
-      $madrabbit_header_search_form .= '  <button class="btn btn-outline-success my-2 my-sm-0" type="submit" id="searchsubmit" name="submit">Rechercher</button>';
+      $madrabbit_header_search_form .= '<form class="d-flex" method="get" id="searchform" action="' . esc_url( home_url( '/' ) ) . '" role="search">';
+      $madrabbit_header_search_form .= '  <input class="form-control me-2" id="s" name="s" type="search" placeholder="Recherche" value="' . get_search_query()  . '">';
+      $madrabbit_header_search_form .= '  <button class="btn btn-outline-success" type="submit" id="searchsubmit" name="submit">Rechercher</button>';
       $madrabbit_header_search_form .= '</form>';
       wp_nav_menu(
         array(
@@ -59,7 +60,7 @@ defined( 'ABSPATH' ) || exit;
           'depth'           => 1,
           'container_class' => 'collapse navbar-collapse',
           'container_id'    => 'navbarSupportedContent',
-          'menu_class'      => 'navbar-nav mr-auto',
+          'menu_class'      => 'navbar-nav me-auto mb-2 mb-md-0',
           'fallback_cb'     => 'WP_Bootstrap_Navwalker::fallback',
           'walker'          => new WP_Bootstrap_Navwalker(),
           'items_wrap'      => '<ul id="%1$s" class="%2$s">%3$s</ul>' . $madrabbit_header_search_form,
@@ -67,6 +68,7 @@ defined( 'ABSPATH' ) || exit;
       );
       ?>
 
+      </div>
     </nav><!-- .navbar -->
 
   </div><!-- #wrapper-navbar end -->
