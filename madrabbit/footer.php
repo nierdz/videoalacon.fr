@@ -24,11 +24,9 @@ defined( 'ABSPATH' ) || exit;
 
           <div class="site-info">
 
+            Coucou, c'est la fin de la page !
+            <span class="sep"> | </span>
             <a href="http://wordpress.org/">Powered by WordPress</a>
-            <span class="sep"> | </span>
-            <a href="https://github.com/nierdz/mad-rabbit.com/">Site web : Open source</a>
-            <span class="sep"> | </span>
-            <a href="https://github.com/nierdz/infra/">Infrastructure : Open source</a>
 
           </div><!-- .site-info -->
 

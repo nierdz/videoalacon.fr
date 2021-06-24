@@ -15,6 +15,7 @@ $understrap_includes = array(
   '/pagination.php',                      // Custom pagination for this theme.
   '/extras.php',                          // Custom functions that act independently of the theme templates.
   '/class-wp-bootstrap-navwalker.php',    // Load custom WordPress nav walker.
+  '/related.php',                         // Get related posts
 );
 
 foreach ( $understrap_includes as $file ) {
