@@ -38,10 +38,15 @@ install-pip-packages: $(VIRTUALENV_DIR) $(VIRTUALENV_DIR)/bin/pre-commit ## Inst
 $(VENDOR_DIR):
 	mkdir $(VENDOR_DIR)
 
-$(NPM_DIR)/.bin/sass: $(THEME_DIR)/package.json
-	cd $(THEME_DIR); \
+$(CSS_DIR):
+	mkdir $(CSS_DIR)
+
+$(NPM_DIR)/.bin/sass: $(THEME_DIR)/package.json $(CSS_DIR)
+	pushd $(THEME_DIR); \
 	npm install; \
-	cp -af ./node_modules/{bootstrap,font-awesome,video.js}/ ./vendor
+	popd; \
+	cp -af $(THEME_DIR)/node_modules/{bootstrap,bootstrap-icons,video.js}/ $(VENDOR_DIR)
+	cp -af $(THEME_DIR)/node_modules/bootstrap-icons/font/fonts $(CSS_DIR)/fonts
 	@touch '$(@)'
 
 install-npm-packages: $(VENDOR_DIR) $(NPM_DIR)/.bin/sass ## Install npm packages
