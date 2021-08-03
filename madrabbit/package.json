@@ -6,7 +6,7 @@
     "font-awesome": "^4.7.0",
     "postcss-cli": "^8.3.1",
     "sass": "^1.35.2",
-    "uglify-js": "^3.14.0",
+    "uglify-js": "^3.14.1",
     "video.js": "^7.14.3"
   }
 }
