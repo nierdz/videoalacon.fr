@@ -30,7 +30,6 @@ get_header();
             <video
               class="video-js"
               controls preload="auto"
-              width="1280" height="720"
               poster="<?php echo array_shift($image)->guid; ?>"
               data-setup='{"aspectRatio": "16:9", "responsive": true}'
             >
