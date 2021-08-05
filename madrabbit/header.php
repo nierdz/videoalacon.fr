@@ -28,8 +28,6 @@ defined( 'ABSPATH' ) || exit;
   $video_timestamp = get_post_meta( $post->ID, 'video_timestamp', true ); ?>
   <meta property="og:video" content="https://media.mad-rabbit.com/videos/<?php echo $video_timestamp; ?>.mp4" />
   <meta property="og:video:type" content="video/mp4" />
-  <meta property="og:video:width" content="640" />
-  <meta property="og:video:height" content="480" />
   <?php } ?>
 </head>
 
