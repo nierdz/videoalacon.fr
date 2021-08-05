@@ -13,7 +13,7 @@
 function print_related_posts( $post_id ) {
   global $wpdb;
 
-  $max_related_posts = 20;
+  $max_related_posts = 30;
 
   $tags = wp_list_pluck( get_the_terms( $post_id, 'post_tag' ), 'term_id');
   $categories = wp_list_pluck( get_the_terms( $post_id, 'category' ), 'term_id');
