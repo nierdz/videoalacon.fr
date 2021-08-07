@@ -51,7 +51,13 @@ $(NPM_DIR)/.bin/sass: $(THEME_DIR)/package.json $(CSS_DIR)
 
 install-npm-packages: $(VENDOR_DIR) $(NPM_DIR)/.bin/sass ## Install npm packages
 
-install: install-pip-packages install-npm-packages mkcert compile-assets
+$(MAIN_DIR)/vendor/bin/phpcs: $(MAIN_DIR)/composer.json
+	composer install
+	@touch '$(@)'
+
+install-composer-packages: $(MAIN_DIR)/vendor/bin/phpcs
+
+install: install-pip-packages install-npm-packages mkcert compile-assets install-composer-packages
 
 mkcert: ## Create certs if needed
 	$(info --> Create certs if needed)
@@ -62,6 +68,12 @@ mkcert: ## Create certs if needed
 	fi; \
 
 tests: ## Run all tests
+	phpcs \
+    -v \
+    -s \
+    --ignore=$(VENDOR_DIR),$(NPM_DIR),$(CSS_DIR),$(JS_DIR) \
+    --standard=WordPress \
+    $(THEME_DIR)/
 	pre-commit run --all-files
 
 compile-assets: $(CSS_DIR)/theme.css $(CSS_DIR)/theme.prefixed.css $(CSS_DIR)/theme.min.css $(JS_DIR)/theme.min.js ## Compile assets
@@ -71,6 +83,7 @@ clean: ## Remove all generated files
 	rm -f mad-rabbit.local+1-key.pem mad-rabbit.local+1.pem
 	rm -rf $(CSS_DIR) $(JS_DIR)
 	rm -rf $(VENDOR_DIR)
+	rm -rf $(MAIN_DIR)/vendor
 
 $(CSS_DIR)/theme.css:
 	mkdir -p $(@D)
