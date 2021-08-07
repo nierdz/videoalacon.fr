@@ -45,16 +45,16 @@ function print_related_posts( $post_id ) {
     ?>
 
   <div class="card mb-3">
-    <div class="row no-gutters">
-      <div class="col-xl-6">
-        <a href="<?php the_permalink(); ?>"><?php the_post_thumbnail( 'large', array('class' => 'rounded-start')); ?></a>
+    <div class="row g-0">
+      <div class="col-md-6">
+        <a href="<?php the_permalink(); ?>"><?php the_post_thumbnail( 'large', array( 'class' => 'rounded-start related-image-cards' ) ); ?></a>
       </div>
-      <div class="col-xl-6">
-        <div class="card-header p-1">
+      <div class="col-md-6">
+        <div class="card-header p-2">
           <?php the_title( sprintf( '<h6 class="card-title"><a href="%s" rel="bookmark" class="text-decoration-none">', esc_url( get_permalink() ) ), '</a></h6>' ); ?>
         </div>
-        <div class="card-body p-1">
-          <div class="card-text mb-0"><i class="bi-calendar"></i> <small class="text-muted"><?php echo get_the_date('j F Y') ?></small></div>
+        <div class="card-body p-2">
+          <div class="card-text"><i class="bi-calendar"></i> <small class="text-muted"><?php echo get_the_date('j F Y') ?></small></div>
           <div class="card-text"><i class="bi-bookmark-star"></i> <small class="text-muted">
           <?php
           $categories = get_the_category();
@@ -63,7 +63,7 @@ function print_related_posts( $post_id ) {
           }
           ?>
           </small></div>
-          <div class="card-text mb-0"><i class="bi-clock"></i> <small class="text-muted"><?php echo esc_html( get_post_meta( get_the_ID(), 'video_duration', true ) ) ?></small></div>
+          <div class="card-text"><i class="bi-clock"></i> <small class="text-muted"><?php echo esc_html( get_post_meta( get_the_ID(), 'video_duration', true ) ) ?></small></div>
         </div>
       </div>
     </div>
