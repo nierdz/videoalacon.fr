@@ -207,3 +207,8 @@ if ( ! function_exists( 'understrap_kses_title' ) ) {
     return wp_kses( $data, $allowed_tags );
   }
 } // End of if function_exists( 'understrap_kses_title' ).
+
+function remove_img_attr ($html) {
+    return preg_replace('/(width|height)="\d+"\s/', "", $html);
+}
+add_filter( 'post_thumbnail_html', 'remove_img_attr' );
