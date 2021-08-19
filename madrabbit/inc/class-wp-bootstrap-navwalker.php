@@ -1,8 +1,4 @@
 <?php
-
-// Exit if accessed directly.
-defined( 'ABSPATH' ) || exit;
-
 /**
  * WP Bootstrap Navwalker
  *
@@ -20,6 +16,10 @@ defined( 'ABSPATH' ) || exit;
  * License: GPL-3.0+
  * License URI: http://www.gnu.org/licenses/gpl-3.0.txt
  */
+
+// Exit if accessed directly.
+defined( 'ABSPATH' ) || exit;
+
 
 // Check if Class Exists.
 if ( ! class_exists( 'WP_Bootstrap_Navwalker' ) ) :
@@ -216,12 +216,12 @@ if ( ! class_exists( 'WP_Bootstrap_Navwalker' ) ) :
 
 			// If the item has_children add atts to <a>.
 			if ( $this->has_children && 0 === $depth ) {
-				$atts['href']          = '#';
-				$atts['data-bs-toggle']   = 'dropdown';
-				$atts['aria-haspopup'] = 'true';
-				$atts['aria-expanded'] = 'false';
-				$atts['class']         = 'dropdown-toggle nav-link';
-				$atts['id']            = 'menu-item-dropdown-' . $item->ID;
+				$atts['href']           = '#';
+				$atts['data-bs-toggle'] = 'dropdown';
+				$atts['aria-haspopup']  = 'true';
+				$atts['aria-expanded']  = 'false';
+				$atts['class']          = 'dropdown-toggle nav-link';
+				$atts['id']             = 'menu-item-dropdown-' . $item->ID;
 			} else {
 				if ( true === $this->has_schema ) {
 					$atts['itemprop'] = 'url';
