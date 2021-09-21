@@ -5,7 +5,7 @@
     "bootstrap-icons": "^1.5.0",
     "clean-css-cli": "^5.3.3",
     "postcss-cli": "^8.3.1",
-    "sass": "^1.41.0",
+    "sass": "^1.42.0",
     "uglify-js": "^3.14.2",
     "video.js": "^7.15.4"
   }
