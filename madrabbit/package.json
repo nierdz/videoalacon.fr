@@ -2,7 +2,7 @@
   "devDependencies": {
     "autoprefixer": "^10.4.4",
     "bootstrap": "^5.1",
-    "bootstrap-icons": "^1.8.1",
+    "bootstrap-icons": "^1.8.2",
     "clean-css-cli": "^5.6.0",
     "postcss-cli": "^9.1.0",
     "sass": "^1.50.0",
