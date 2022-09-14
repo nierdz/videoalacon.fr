@@ -6,7 +6,7 @@
     "clean-css-cli": "^5.6.1",
     "postcss-cli": "^10.0.0",
     "sass": "^1.53.0",
-    "uglify-js": "^3.16.1",
+    "uglify-js": "^3.17.0",
     "video.js": "^7.20.2"
   }
 }
