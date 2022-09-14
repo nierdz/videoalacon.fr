@@ -3,7 +3,7 @@
     "autoprefixer": "^10.4.7",
     "bootstrap": "^5.1",
     "bootstrap-icons": "^1.8.3",
-    "clean-css-cli": "^5.6.0",
+    "clean-css-cli": "^5.6.1",
     "postcss-cli": "^10.0.0",
     "sass": "^1.53.0",
     "uglify-js": "^3.16.1",
