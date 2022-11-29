@@ -1,0 +1,33 @@
+---
+name: DOCKER-PUSH
+
+on:
+  push:
+    branches:
+      - master
+    paths:
+      - 'Dockerfile'
+
+jobs:
+  docker-push:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          submodules: recursive
+      - name: set up Python 3.10
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.10"
+      - name: install dependencies
+        run: python -m pip install --upgrade pip virtualenv
+      - name: compile assets
+        run: make install-pip-packages install-npm-packages compile-assets
+      - name: start on fresh docker installation
+        run: docker system prune --all --force --volumes
+      - name: build docker image
+        run: make docker-build
+      - name: push image and README.md on docker hub
+        run: bash scripts/docker-push.sh
+        env:
+          DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
