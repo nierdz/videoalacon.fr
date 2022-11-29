@@ -112,3 +112,6 @@ watch: ## Watch for files changes and compile them if necessary
 
 fixtures: ## Insert post with images and videos
 	$(MAIN_DIR)/scripts/fixtures.sh
+
+docker-build: ## Build docker image
+	scripts/docker-build.sh
