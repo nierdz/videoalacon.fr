@@ -1,4 +1,5 @@
 FROM php:8.0-fpm
+LABEL version=1.0.0
 SHELL ["/bin/bash", "-o", "errexit", "-o", "pipefail", "-o", "nounset", "-c"]
 # hadolint ignore=DL3022
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
@@ -57,6 +58,7 @@ RUN curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli
     && mv wp-cli.phar /usr/local/bin/wp
 COPY wp-cli.yml wp-cli.yml
 
+COPY madrabbit /var/www/bedrock/web/app/themes/madrabbit
 COPY supervisor/supervisord.conf /etc/supervisor/supervisord.conf
 COPY supervisor/nginx.conf /etc/supervisor/conf.d/nginx.conf
 COPY supervisor/php-fpm.conf /etc/supervisor/conf.d/php-fpm.conf
