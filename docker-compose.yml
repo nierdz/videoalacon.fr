@@ -3,6 +3,7 @@ version: '3'
 services:
   db:
     container_name: db
+    env_file: .env.local
     image: nierdz/mysql:1.1.5
     restart: on-failure
     command: >
@@ -13,11 +14,6 @@ services:
       --general_log_file=/var/lib/mysql/general.log
     volumes:
       - ./mysql:/var/lib/mysql:rw
-    environment:
-      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
-      MYSQL_DATABASE: ${MYSQL_NAME}
-      MYSQL_USER: ${MYSQL_USER}
-      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
     healthcheck:
       test: ["CMD-SHELL", "mysqladmin -u root -p${MYSQL_ROOT_PASSWORD} ping || exit 1"]
       interval: 10s
@@ -26,6 +22,7 @@ services:
 
   wordpress:
     container_name: wordpress
+    env_file: .env.local
     build:
       context: ./
     restart: on-failure
@@ -44,9 +41,7 @@ services:
       - ./madrabbit:/var/www/bedrock/web/app/themes/madrabbit:rw
       - ./images:/var/www/bedrock/web/images:ro
       - ./uploads:/var/www/bedrock/web/app/uploads:rw
-    environment:
-      TMTK_PASSWORD: ${TMTK_PASSWORD}
-      WP_HOME: ${WP_HOME}
+      - .env.local:/var/www/bedrock/.env:ro
     depends_on:
       - db
     extra_hosts:
