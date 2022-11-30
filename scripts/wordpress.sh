@@ -40,6 +40,3 @@ runuser - www-data -s /bin/bash -c "
   /usr/local/bin/wp \
     language core \
     activate fr_FR"
-
-# Delete all default themes
-rm -rf "$BEDROCK_DIR/web/wp/wp-content/themes/"
