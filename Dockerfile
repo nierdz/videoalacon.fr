@@ -50,7 +50,6 @@ RUN composer create-project --no-dev --no-scripts roots/bedrock /var/www/bedrock
     composer require --update-no-dev roots/wordpress:6.1.1 && \
     composer require --update-no-dev wpackagist-plugin/flush-opcache:4.1.4 && \
     chown -R www-data:www-data /var/www/bedrock
-COPY .env .env
 COPY config/environments config/environments/
 
 RUN curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar \
