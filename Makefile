@@ -64,7 +64,7 @@ mkcert: ## Create certs if needed
 	if [[ -e mad-rabbit.local+1-key.pem ]] && [[ -e mad-rabbit.local+1.pem ]]; then \
 		openssl verify -CAfile ~/.local/share/mkcert/rootCA.pem mad-rabbit.local+1.pem; \
 	else \
-		mkcert "mad-rabbit.local" "media.mad-rabbit.local"; \
+		mkcert "mad-rabbit.local"; \
 	fi; \
 
 tests: ## Run all tests
