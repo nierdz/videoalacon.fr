@@ -87,6 +87,7 @@ clean: ## Remove all generated files
 	rm -rf $(CSS_DIR) $(JS_DIR)
 	rm -rf $(VENDOR_DIR)
 	rm -rf $(MAIN_DIR)/vendor
+	rm -rf $(MAIN_DIR)/images
 
 $(CSS_DIR)/theme.css:
 	mkdir -p $(@D)
