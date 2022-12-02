@@ -7,11 +7,8 @@ set -o nounset
 DEBUG=${DEBUG:=0}
 [[ $DEBUG -eq 1 ]] && set -o xtrace
 
-BEDROCK_DIR="/var/www/bedrock"
-
-if ! runuser - www-data -s /bin/bash -c "cd $BEDROCK_DIR && /usr/local/bin/wp core is-installed"; then
+if ! runuser - www-data -s /bin/bash -c "/usr/local/bin/wp core is-installed"; then
   runuser - www-data -s /bin/bash -c "
-    cd $BEDROCK_DIR && \
     /usr/local/bin/wp \
       core install \
       --url=\"$WP_HOME\" \
@@ -22,21 +19,22 @@ if ! runuser - www-data -s /bin/bash -c "cd $BEDROCK_DIR && /usr/local/bin/wp co
       --skip-email"
 fi
 
-if ! runuser - www-data -s /bin/bash -c "cd $BEDROCK_DIR && /usr/local/bin/wp theme is-active madrabbit"; then
+if ! runuser - www-data -s /bin/bash -c "/usr/local/bin/wp theme is-active madrabbit"; then
   runuser - www-data -s /bin/bash -c "
-    cd $BEDROCK_DIR && \
     /usr/local/bin/wp \
     theme \
     activate madrabbit"
 fi
 
 runuser - www-data -s /bin/bash -c "
-  cd $BEDROCK_DIR && \
   /usr/local/bin/wp \
     language core \
     install fr_FR"
 runuser - www-data -s /bin/bash -c "
-  cd $BEDROCK_DIR && \
   /usr/local/bin/wp \
     language core \
     activate fr_FR"
+runuser - www-data -s /bin/bash -c "
+  /usr/local/bin/wp \
+    language core \
+    update"
