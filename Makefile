@@ -11,6 +11,8 @@ SCSS_DIR := $(THEME_DIR)/scss
 CSS_DIR := $(THEME_DIR)/css
 JS_DIR := $(THEME_DIR)/js
 FIXTURES_FILE := $(MAIN_DIR)/fixtures.xml
+USER := kmet
+SERVER := srv1.igln.fr
 
 .DEFAULT_GOAL := help
 .SHELLFLAGS := -eu -o pipefail -c
@@ -57,7 +59,7 @@ $(MAIN_DIR)/vendor/bin/phpcs: $(MAIN_DIR)/composer.json
 
 install-composer-packages: $(MAIN_DIR)/vendor/bin/phpcs
 
-install: install-pip-packages install-npm-packages mkcert compile-assets install-composer-packages
+install: rsync-pull-images install-pip-packages install-npm-packages mkcert compile-assets install-composer-packages
 
 mkcert: ## Create certs if needed
 	$(info --> Create certs if needed)
@@ -108,10 +110,11 @@ watch: ## Watch for files changes and compile them if necessary
 	cd $(THEME_DIR); npx sass --watch --style=expanded --embed-source-map $(SCSS_DIR)/theme.scss $(CSS_DIR)/theme.css &
 	cd $(THEME_DIR); npx postcss --verbose --watch $(CSS_DIR)/theme.css --use autoprefixer --output  $(CSS_DIR)/theme.min.css
 
-.PHONY: help pre-commit-install install-pip-packages install-npm-packages install mkcert tests compile-assets clean watch
-
 fixtures: ## Insert post with images and videos
 	$(MAIN_DIR)/scripts/fixtures.sh
 
 docker-build: ## Build docker image
 	scripts/docker-build.sh
+
+rsync-pull-images: ## Pull images folder from server
+	rsync -avz $(USER)@$(SERVER):/infra/madrabbit/images .
