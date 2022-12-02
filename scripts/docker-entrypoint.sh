@@ -7,7 +7,7 @@ set -o nounset
 DEBUG=${DEBUG:=0}
 [[ $DEBUG -eq 1 ]] && set -o xtrace
 
-if ! "/usr/bin/wp core --allow-root is-installed"; then
+if ! /usr/bin/wp core --allow-root is-installed; then
   /usr/bin/wp \
     core install \
     --allow-root \
@@ -19,21 +19,23 @@ if ! "/usr/bin/wp core --allow-root is-installed"; then
     --skip-email
 fi
 
-if ! "/usr/bin/wp theme is-active madrabbit"; then
+if ! /usr/bin/wp --allow-root theme is-active madrabbit; then
   /usr/bin/wp \
     theme activate \
     --allow-root \
     madrabbit
 fi
 
+if ! wp --allow-root language core is-installed fr_FR; then
+  /usr/bin/wp \
+    language core install \
+    --allow-root \
+    fr_FR
+fi
 /usr/bin/wp \
-  language core \
+  site switch-language \
   --allow-root \
-  install fr_FR
-/usr/bin/wp \
-  language core \
-  --allow-root \
-  activate fr_FR
+  fr_FR
 /usr/bin/wp \
   language core \
   --allow-root \
