@@ -46,16 +46,12 @@ RUN apt-get update \
 
 RUN mkdir /var/www/bedrock
 WORKDIR /var/www/bedrock
-RUN composer create-project --no-dev --no-scripts roots/bedrock /var/www/bedrock 1.21.1 && \
+RUN composer create-project --no-dev --no-scripts roots/bedrock . 1.21.1 && \
     composer require --update-no-dev roots/wordpress:6.1.1 && \
-    composer require --update-no-dev wpackagist-plugin/flush-opcache:4.1.4 && \
-    chown -R www-data:www-data /var/www/bedrock
-COPY config/environments config/environments/
-
+    composer require --update-no-dev wpackagist-plugin/flush-opcache:4.1.4
 RUN curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar \
-    && chmod +x wp-cli.phar \
-    && mv wp-cli.phar /usr/local/bin/wp
-COPY wp-cli.yml wp-cli.yml
+    && mv wp-cli.phar /usr/bin/wp \
+    && chmod +x /usr/bin/wp
 
 COPY madrabbit /var/www/bedrock/web/app/themes/madrabbit
 COPY supervisor/supervisord.conf /etc/supervisor/supervisord.conf
@@ -65,8 +61,6 @@ COPY php/zzz-hardening.ini /usr/local/etc/php/conf.d/zzz-hardening.ini
 COPY php/zzz-tuning.ini /usr/local/etc/php/conf.d/zzz-tuning.ini
 COPY php/zzz-opcache.ini /usr/local/etc/php/conf.d/zzz-opcache.ini
 
-RUN mkdir /docker-entrypoint.d
 COPY scripts/docker-entrypoint.sh /
-COPY scripts/wordpress.sh /docker-entrypoint.d
 ENTRYPOINT ["/docker-entrypoint.sh"]
 CMD ["/usr/bin/supervisord", "-c", "/etc/supervisor/supervisord.conf"]

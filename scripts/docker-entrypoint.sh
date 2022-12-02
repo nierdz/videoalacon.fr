@@ -7,29 +7,38 @@ set -o nounset
 DEBUG=${DEBUG:=0}
 [[ $DEBUG -eq 1 ]] && set -o xtrace
 
-chown -R 33:33 /var/www/bedrock/web/app/uploads
-
-if [[ -n "$(ls -A /docker-entrypoint.d/)" ]]; then
-  echo "$0: /docker-entrypoint.d/ is not empty, will attempt to perform configuration"
-
-  echo "$0: Looking for shell scripts in /docker-entrypoint.d/"
-  find "/docker-entrypoint.d/" -follow -type f -print | sort -V | while read -r f; do
-    case "$f" in
-      *.sh)
-        if [[ -x "$f" ]]; then
-          echo "$0: Launching $f"
-          "$f"
-        else
-          echo "$0: Ignoring $f, not executable"
-        fi
-        ;;
-      *) echo "$0: Ignoring $f" ;;
-    esac
-  done
-
-  echo "$0: Configuration complete; ready for start up"
-else
-  echo "$0: No files found in /docker-entrypoint.d/, skipping configuration"
+if ! "/usr/bin/wp core --allow-root is-installed"; then
+  /usr/bin/wp \
+    core install \
+    --allow-root \
+    --url="$WP_HOME" \
+    --title="Vidéos à la con de l'internet" \
+    --admin_user="madrabbit" \
+    --admin_password="${TMTK_PASSWORD}" \
+    --admin_email="nierdz@example.com" \
+    --skip-email
 fi
+
+if ! "/usr/bin/wp theme is-active madrabbit"; then
+  /usr/bin/wp \
+    theme activate \
+    --allow-root \
+    madrabbit
+fi
+
+/usr/bin/wp \
+  language core \
+  --allow-root \
+  install fr_FR
+/usr/bin/wp \
+  language core \
+  --allow-root \
+  activate fr_FR
+/usr/bin/wp \
+  language core \
+  --allow-root \
+  update
+
+echo "$0: Configuration complete; ready for start up"
 
 exec "$@"
