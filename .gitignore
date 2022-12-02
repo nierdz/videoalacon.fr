@@ -2,8 +2,8 @@ fixtures.xml
 images
 mysql
 uploads
-mad-rabbit.local+1-key.pem
-mad-rabbit.local+1.pem
+mad-rabbit.local-key.pem
+mad-rabbit.local.pem
 node_modules
 vendor
 madrabbit/css

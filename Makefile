@@ -64,7 +64,7 @@ install-ci: install-pip-packages install-npm-packages mkcert compile-assets inst
 
 mkcert: ## Create certs if needed
 	$(info --> Create certs if needed)
-	if [[ -e mad-rabbit.local+1-key.pem ]] && [[ -e mad-rabbit.local+1.pem ]]; then \
+	if [[ -e mad-rabbit.local-key.pem ]] && [[ -e mad-rabbit.local.pem ]]; then \
 		openssl verify -CAfile ~/.local/share/mkcert/rootCA.pem mad-rabbit.local+1.pem; \
 	else \
 		mkcert "mad-rabbit.local"; \
@@ -83,7 +83,7 @@ compile-assets: $(CSS_DIR)/theme.css $(CSS_DIR)/theme.prefixed.css $(CSS_DIR)/th
 
 clean: ## Remove all generated files
 	rm -rf $(VIRTUALENV_DIR) $(NPM_DIR)
-	rm -f mad-rabbit.local+1-key.pem mad-rabbit.local+1.pem
+	rm -f mad-rabbit.local+1-.pem mad-rabbit.local.pem
 	rm -rf $(CSS_DIR) $(JS_DIR)
 	rm -rf $(VENDOR_DIR)
 	rm -rf $(MAIN_DIR)/vendor
