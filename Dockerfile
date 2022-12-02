@@ -57,9 +57,6 @@ COPY madrabbit /var/www/bedrock/web/app/themes/madrabbit
 COPY supervisor/supervisord.conf /etc/supervisor/supervisord.conf
 COPY supervisor/nginx.conf /etc/supervisor/conf.d/nginx.conf
 COPY supervisor/php-fpm.conf /etc/supervisor/conf.d/php-fpm.conf
-COPY php/zzz-hardening.ini /usr/local/etc/php/conf.d/zzz-hardening.ini
-COPY php/zzz-tuning.ini /usr/local/etc/php/conf.d/zzz-tuning.ini
-COPY php/zzz-opcache.ini /usr/local/etc/php/conf.d/zzz-opcache.ini
 
 COPY scripts/docker-entrypoint.sh /
 ENTRYPOINT ["/docker-entrypoint.sh"]

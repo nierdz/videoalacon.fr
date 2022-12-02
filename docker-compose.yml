@@ -33,9 +33,9 @@ services:
       - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
       - ./nginx/conf:/etc/nginx/conf:ro
       - ./nginx/mad-rabbit.com.conf:/etc/nginx/conf.d/mad-rabbit.com.conf:ro
-      - ./php/dev/zzz-hardening.ini:/usr/local/etc/php/conf.d/zzz-hardening.ini
-      - ./php/dev/zzz-opcache.ini:/usr/local/etc/php/conf.d/zzz-opcache.ini
-      - ./php/dev/zzz-tuning.ini:/usr/local/etc/php/conf.d/zzz-tuning.ini
+      - ./php/zzz-hardening.ini:/usr/local/etc/php/conf.d/zzz-hardening.ini
+      - ./php/zzz-opcache.ini:/usr/local/etc/php/conf.d/zzz-opcache.ini
+      - ./php/zzz-php-fpm-tuning.conf:/usr/local/etc/php-fpm.d/zzz-php-fpm-tuning.conf
       - ./mad-rabbit.local-key.pem:/etc/nginx/mad-rabbit.local-key.pem:ro
       - ./mad-rabbit.local.pem:/etc/nginx/mad-rabbit.local.pem:ro
       - ./madrabbit:/var/www/bedrock/web/app/themes/madrabbit:rw
@@ -44,10 +44,8 @@ services:
       - .env.local:/var/www/bedrock/.env:ro
     depends_on:
       - db
-    extra_hosts:
-      - "mad-rabbit.local:127.0.0.1"
     healthcheck:
-      test: ["CMD-SHELL", "curl --fail http://localhost:80 || exit 1"]
+      test: ["CMD-SHELL", "curl --fail http://127.0.0.1:80/fpm-status || exit 1"]
       interval: 10s
       timeout: 5s
       retries: 3
