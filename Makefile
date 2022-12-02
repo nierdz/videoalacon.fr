@@ -60,6 +60,7 @@ $(MAIN_DIR)/vendor/bin/phpcs: $(MAIN_DIR)/composer.json
 install-composer-packages: $(MAIN_DIR)/vendor/bin/phpcs
 
 install: rsync-pull-images install-pip-packages install-npm-packages mkcert compile-assets install-composer-packages
+install-ci: install-pip-packages install-npm-packages mkcert compile-assets install-composer-packages
 
 mkcert: ## Create certs if needed
 	$(info --> Create certs if needed)
