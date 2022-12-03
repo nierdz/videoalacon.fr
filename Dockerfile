@@ -5,13 +5,13 @@ SHELL ["/bin/bash", "-o", "errexit", "-o", "pipefail", "-o", "nounset", "-c"]
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
 # hadolint ignore=DL3009,DL3008
-RUN apt-get update && \
-    apt-get install -y --no-install-recommends --no-install-suggests \
+RUN apt-get update \
+  && apt-get install -y --no-install-recommends --no-install-suggests \
     ca-certificates \
     gnupg1
-RUN curl -o nginx_signing.key https://nginx.org/keys/nginx_signing.key && \
-    apt-key add nginx_signing.key && \
-    echo "deb https://nginx.org/packages/mainline/debian/ bullseye nginx" > /etc/apt/sources.list.d/nginx.list
+RUN curl -o nginx_signing.key https://nginx.org/keys/nginx_signing.key \
+  && apt-key add nginx_signing.key \
+  && echo "deb https://nginx.org/packages/mainline/debian/ bullseye nginx" > /etc/apt/sources.list.d/nginx.list
 
 # hadolint ignore=DL3008
 RUN apt-get update \
@@ -44,11 +44,15 @@ RUN apt-get update \
   && docker-php-ext-enable imagick \
   && rm -rf /var/lib/apt/lists/* /tmp/*
 
+RUN curl -o /usr/bin/youtube-dl -L https://github.com/ytdl-org/youtube-dl/releases/download/2021.12.17/youtube-dl \
+  && chmod +x /usr/bin/youtube-dl \
+  && update-alternatives --install /usr/local/bin/python python /usr/bin/python3 10
+
 RUN mkdir /var/www/bedrock
 WORKDIR /var/www/bedrock
-RUN composer create-project --no-dev --no-scripts roots/bedrock . 1.21.1 && \
-    composer require --update-no-dev roots/wordpress:6.1.1 && \
-    composer require --update-no-dev wpackagist-plugin/flush-opcache:4.1.4
+RUN composer create-project --no-dev --no-scripts roots/bedrock . 1.21.1 \
+  && composer require --update-no-dev roots/wordpress:6.1.1 \
+  && composer require --update-no-dev wpackagist-plugin/flush-opcache:4.1.4
 RUN curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar \
     && mv wp-cli.phar /usr/bin/wp \
     && chmod +x /usr/bin/wp
