@@ -44,9 +44,8 @@ RUN apt-get update \
   && docker-php-ext-enable imagick \
   && rm -rf /var/lib/apt/lists/* /tmp/*
 
-RUN curl -o /usr/bin/youtube-dl -L https://github.com/ytdl-org/youtube-dl/releases/download/2021.12.17/youtube-dl \
-  && chmod +x /usr/bin/youtube-dl \
-  && update-alternatives --install /usr/local/bin/python python /usr/bin/python3 10
+RUN curl -o /usr/bin/yt-dlp -L https://github.com/yt-dlp/yt-dlp/releases/latest/download/yt-dlp_linux \
+  && chmod +x /usr/bin/yt-dlp
 
 RUN mkdir /var/www/bedrock
 WORKDIR /var/www/bedrock
