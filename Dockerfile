@@ -1,5 +1,5 @@
 FROM php:8.0-fpm
-LABEL version=1.1.0
+LABEL version=1.1.1
 SHELL ["/bin/bash", "-o", "errexit", "-o", "pipefail", "-o", "nounset", "-c"]
 # hadolint ignore=DL3022
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
@@ -18,6 +18,7 @@ RUN apt-get update \
     ca-certificates \
     git \
     gnupg1 \
+    less \
     libfreetype6-dev \
     libicu-dev \
     libjpeg-dev \
@@ -46,6 +47,7 @@ RUN apt-get update \
   && rm nginx_signing.key \
   && apt-get update \
   && apt-get install -y --no-install-recommends --no-install-suggests \
+    ffmpeg \
     nginx \
     supervisor \
   && composer create-project --no-dev --no-scripts roots/bedrock . ${BEDROCK_VERSION} \
@@ -66,5 +68,6 @@ COPY supervisor/nginx.conf /etc/supervisor/conf.d/nginx.conf
 COPY supervisor/php-fpm.conf /etc/supervisor/conf.d/php-fpm.conf
 
 COPY scripts/docker-entrypoint.sh /
+COPY scripts/media_importer.sh /usr/bin/media_importer
 ENTRYPOINT ["/docker-entrypoint.sh"]
 CMD ["/usr/bin/supervisord", "-c", "/etc/supervisor/supervisord.conf"]
