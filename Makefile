@@ -120,3 +120,8 @@ docker-build: ## Build docker image
 
 rsync-pull-images: ## Pull images folder from server
 	rsync -avz $(USER)@$(SERVER):/infra/madrabbit/images .
+
+docker-compose-rebuild: ## Rebuild docker image and run a down and up
+	docker compose build
+	docker compose down
+	docker compose up -d
