@@ -47,6 +47,7 @@ RUN apt-get update \
   && rm nginx_signing.key \
   && apt-get update \
   && apt-get install -y --no-install-recommends --no-install-suggests \
+    ffmpeg \
     nginx \
     supervisor \
   && composer create-project --no-dev --no-scripts roots/bedrock . ${BEDROCK_VERSION} \
