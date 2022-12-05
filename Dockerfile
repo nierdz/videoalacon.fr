@@ -68,5 +68,6 @@ COPY supervisor/nginx.conf /etc/supervisor/conf.d/nginx.conf
 COPY supervisor/php-fpm.conf /etc/supervisor/conf.d/php-fpm.conf
 
 COPY scripts/docker-entrypoint.sh /
+COPY scripts/media_importer.sh /usr/bin/media_importer
 ENTRYPOINT ["/docker-entrypoint.sh"]
 CMD ["/usr/bin/supervisord", "-c", "/etc/supervisor/supervisord.conf"]
