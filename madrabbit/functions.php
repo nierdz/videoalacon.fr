@@ -16,6 +16,7 @@ $understrap_includes = array(
 	'/extras.php',                          // Custom functions that act independently of the theme templates.
 	'/class-wp-bootstrap-navwalker.php',    // Load custom WordPress nav walker.
 	'/related.php',                         // Get related posts.
+	'/video.php',                           // Download video and setup associated custom post fields.
 );
 
 foreach ( $understrap_includes as $file ) {
