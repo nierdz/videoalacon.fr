@@ -18,6 +18,7 @@ RUN apt-get update \
     ca-certificates \
     git \
     gnupg1 \
+    less \
     libfreetype6-dev \
     libicu-dev \
     libjpeg-dev \
