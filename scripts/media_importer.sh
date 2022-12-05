@@ -52,14 +52,28 @@ if [[ ${TYPE} == "video" ]]; then
 fi
 
 if [[ ${TYPE} == "image" ]]; then
-  POSTER_URL=$(
-    ${YT_BIN} \
-      --skip-download \
-      --cache-dir "/dev/shm" \
-      --print thumbnail \
-      "${URL}"
-  )
-  curl -o "${WORKING_DIR}/${TIMESTAMP}.jpg" "${POSTER_URL}"
+  if [[ -z ${POSTER} ]]; then
+    POSTER_URL=$(
+      ${YT_BIN} \
+        --skip-download \
+        --cache-dir "/dev/shm" \
+        --print thumbnail \
+        "${URL}"
+    )
+    curl -o "${WORKING_DIR}/${TIMESTAMP}.jpg" "${POSTER_URL}"
+  else
+    date=$(
+      ${WP_BIN} \
+        post get \
+        "${POST_ID}" \
+        --field="post_date"
+    )
+    ffmpeg \
+      -ss "00:${POSTER}" \
+      -i "/var/www/bedrock/web/app/uploads/$(date -d "${date}" '+%Y')/$(date -d "${date}" '+%m')/${TIMESTAMP}.mp4" \
+      -frames:v 1 \
+      "${WORKING_DIR}/${TIMESTAMP}.jpg"
+  fi
   ${WP_BIN} \
     media import \
     "${WORKING_DIR}/${TIMESTAMP}.jpg" \
