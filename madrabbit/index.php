@@ -33,7 +33,7 @@ get_header();
 				<div class="card-body text-truncate">
 				<?php the_title( sprintf( '<h6 class="card-title"><a href="%s" class="text-decoration-none" rel="bookmark">', esc_url( get_permalink() ) ), '</a></h6>' ); ?>
 				<div class="card-text"><i class="bi-calendar"></i> <small class="text-muted"><?php echo get_the_date( 'j F Y' ); ?></small></div>
-				<div class="card-text"><i class="bi-clock"></i> <small class="text-muted"><?php echo esc_html( get_post_meta( get_the_ID(), 'video_duration', true ) ); ?></small></div>
+				<div class="card-text"><i class="bi-clock"></i> <small class="text-muted"><?php echo esc_html( get_post_meta( get_the_ID(), 'duration', true ) ); ?></small></div>
 				</div>
 			</div>
 			</div>
