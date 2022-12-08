@@ -39,6 +39,7 @@ pushd /var/www/bedrock
 if [[ ${TYPE} == "video" ]]; then
   ${YT_BIN} \
     --format "best[ext=mp4]" \
+    --user-agent "Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)" \
     --no-embed-metadata \
     --cache-dir "${WORKING_DIR}" \
     --output "${WORKING_DIR}/${TIMESTAMP}.mp4" \
@@ -55,12 +56,16 @@ if [[ ${TYPE} == "image" ]]; then
   if [[ -z ${POSTER} ]]; then
     POSTER_URL=$(
       ${YT_BIN} \
+        --user-agent "Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)" \
         --skip-download \
         --cache-dir "/dev/shm" \
         --print thumbnail \
         "${URL}"
     )
-    curl -o "${WORKING_DIR}/${TIMESTAMP}.jpg" "${POSTER_URL}"
+    curl \
+      --user-agent "Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)" \
+      -o "${WORKING_DIR}/${TIMESTAMP}.jpg" \
+      "${POSTER_URL}"
   else
     date=$(
       ${WP_BIN} \
