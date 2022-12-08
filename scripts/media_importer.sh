@@ -37,13 +37,21 @@ fi
 pushd /var/www/bedrock
 
 if [[ ${TYPE} == "video" ]]; then
-  ${YT_BIN} \
-    --format "best[ext=mp4]" \
-    --user-agent "Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)" \
-    --no-embed-metadata \
-    --cache-dir "${WORKING_DIR}" \
-    --output "${WORKING_DIR}/${TIMESTAMP}.mp4" \
-    "${URL}"
+  if [[ ${URL} == *koreus.com* ]]; then
+    URL=$(curl --silent -L "${URL}" | grep -m 1 -oE "https.*embed.koreus.*\.mp4")
+    curl \
+      --user-agent "Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)" \
+      -o "${WORKING_DIR}/${TIMESTAMP}.mp4" \
+      "${URL}"
+  else
+    ${YT_BIN} \
+      --format "best[ext=mp4]" \
+      --user-agent "Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)" \
+      --no-embed-metadata \
+      --cache-dir "${WORKING_DIR}" \
+      --output "${WORKING_DIR}/${TIMESTAMP}.mp4" \
+      "${URL}"
+  fi
 
   ${WP_BIN} \
     media import \
@@ -54,14 +62,18 @@ fi
 
 if [[ ${TYPE} == "image" ]]; then
   if [[ -z ${POSTER} ]]; then
-    POSTER_URL=$(
-      ${YT_BIN} \
-        --user-agent "Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)" \
-        --skip-download \
-        --cache-dir "/dev/shm" \
-        --print thumbnail \
-        "${URL}"
-    )
+    if [[ ${URL} == *koreus.com* ]]; then
+      POSTER_URL=$(curl --silent -L "${URL}" | grep -m 1 -oE "https.*cdn.koreus.com/thumbshigh/.*\.jpg")
+    else
+      POSTER_URL=$(
+        ${YT_BIN} \
+          --user-agent "Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)" \
+          --skip-download \
+          --cache-dir "/dev/shm" \
+          --print thumbnail \
+          "${URL}"
+      )
+    fi
     curl \
       --user-agent "Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)" \
       -o "${WORKING_DIR}/${TIMESTAMP}.jpg" \
