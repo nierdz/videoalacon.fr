@@ -43,6 +43,15 @@ if [[ ${TYPE} == "video" ]]; then
       --user-agent "Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)" \
       -o "${WORKING_DIR}/${TIMESTAMP}.mp4" \
       "${URL}"
+  elif [[ ${URL} == *reddit.com* ]]; then
+    # Thanks to https://github.com/DapperCore/reddit-video-downloader
+    ID=$(cut -d'/' -f7 <<<"${URL}")
+    JSON=$(curl --show-error --silent "https://api.reddit.com/api/info/?id=t3_${ID}")
+    MP4_URL=$(jq -r '.data.children[0].data.secure_media.reddit_video.dash_url' <<<"${JSON}")
+    ffmpeg \
+      -user_agent "Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)" \
+      -i "${MP4_URL//;/\\;}" \
+      -c copy "${WORKING_DIR}/${TIMESTAMP}.mp4"
   else
     ${YT_BIN} \
       --format "best[ext=mp4]" \
