@@ -1,5 +1,5 @@
 FROM php:8.0-fpm
-LABEL version=1.1.5
+LABEL version=1.1.6
 SHELL ["/bin/bash", "-o", "errexit", "-o", "pipefail", "-o", "nounset", "-c"]
 # hadolint ignore=DL3022
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
@@ -18,6 +18,7 @@ RUN apt-get update \
     ca-certificates \
     git \
     gnupg1 \
+    jq \
     less \
     libfreetype6-dev \
     libicu-dev \
