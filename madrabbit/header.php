@@ -32,6 +32,11 @@ if ( is_single() ) {
 <meta property="og:image" content="<?php the_post_thumbnail_url(); ?>" />
 <meta property="og:url" content="<?php wp_get_canonical_url(); ?>" />
 <meta property="og:site_name" content="<?php bloginfo( 'name' ); ?>" />
+<meta name="twitter:title" content="<?php the_title(); ?>">
+<meta name="twitter:description" content="<?php echo esc_textarea( $description ); ?>">
+<meta name="twitter:image" content="<?php the_post_thumbnail_url(); ?>">
+<meta name="twitter:site" content="@madrabbitvideos">
+<meta name="twitter:creator" content="@madrabbitvideos">
 <?php } ?>
 <meta charset="<?php bloginfo( 'charset' ); ?>">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
