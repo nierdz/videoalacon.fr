@@ -25,6 +25,14 @@ if ( is_single() ) {
 }
 // phpcs:ignore Squiz.PHP.EmbeddedPhp.ContentAfterEnd
 ?>" />
+<?php if ( is_single() ) { ?>
+<meta property="og:type" content="article" />
+<meta property="og:title" content="<?php the_title(); ?>" />
+<meta property="og:description" content="<?php echo esc_textarea( $description ); ?>" />
+<meta property="og:image" content="<?php the_post_thumbnail_url(); ?>" />
+<meta property="og:url" content="<?php wp_get_canonical_url(); ?>" />
+<meta property="og:site_name" content="<?php bloginfo( 'name' ); ?>" />
+<?php } ?>
 <meta charset="<?php bloginfo( 'charset' ); ?>">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link rel="profile" href="http://gmpg.org/xfn/11">
