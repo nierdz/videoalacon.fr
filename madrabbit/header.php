@@ -14,6 +14,30 @@ defined( 'ABSPATH' ) || exit;
 <!DOCTYPE html>
 <html <?php language_attributes(); ?>>
 <head>
+<?php // phpcs:ignore Squiz.PHP.EmbeddedPhp.ContentBeforeOpen ?>
+<meta name="description" content="<?php
+if ( is_single() ) {
+	$content     = get_the_content();
+	$description = wp_trim_words( trim( wp_strip_all_tags( strip_shortcodes( $content ) ) ), 55, '' );
+	echo esc_textarea( $description );
+} else {
+	bloginfo( 'name' );
+}
+// phpcs:ignore Squiz.PHP.EmbeddedPhp.ContentAfterEnd
+?>" />
+<?php if ( is_single() ) { ?>
+<meta property="og:type" content="article" />
+<meta property="og:title" content="<?php the_title(); ?>" />
+<meta property="og:description" content="<?php echo esc_textarea( $description ); ?>" />
+<meta property="og:image" content="<?php the_post_thumbnail_url(); ?>" />
+<meta property="og:url" content="<?php wp_get_canonical_url(); ?>" />
+<meta property="og:site_name" content="<?php bloginfo( 'name' ); ?>" />
+<meta name="twitter:title" content="<?php the_title(); ?>">
+<meta name="twitter:description" content="<?php echo esc_textarea( $description ); ?>">
+<meta name="twitter:image" content="<?php the_post_thumbnail_url(); ?>">
+<meta name="twitter:site" content="@madrabbitvideos">
+<meta name="twitter:creator" content="@madrabbitvideos">
+<?php } ?>
 <meta charset="<?php bloginfo( 'charset' ); ?>">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link rel="profile" href="http://gmpg.org/xfn/11">

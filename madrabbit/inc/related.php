@@ -47,7 +47,17 @@ function print_related_posts( $post_id ) {
 		<div class="card mb-3">
 			<div class="row g-0">
 				<div class="col-md-6">
-					<a href="<?php the_permalink(); ?>"><?php the_post_thumbnail( 'large', array( 'class' => 'rounded-start related-image-cards' ) ); ?></a>
+					<a href="<?php the_permalink(); ?>">
+													<?php
+													the_post_thumbnail(
+														'large',
+														array(
+															'class' => 'rounded-start related-image-cards',
+															'alt' => get_the_title(),
+														)
+													);
+													?>
+								</a>
 				</div>
 				<div class="col-md-6">
 					<div class="card-header p-2">
