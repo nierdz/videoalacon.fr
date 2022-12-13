@@ -1,5 +1,5 @@
 FROM php:8.0-fpm
-LABEL version=1.1.7
+LABEL version=1.1.8
 SHELL ["/bin/bash", "-o", "errexit", "-o", "pipefail", "-o", "nounset", "-c"]
 # hadolint ignore=DL3022
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
@@ -54,6 +54,8 @@ RUN apt-get update \
   && composer create-project --no-dev --no-scripts roots/bedrock . ${BEDROCK_VERSION} \
   && composer require --update-no-dev roots/wordpress:${WORDPRESS_VERSION} \
   && composer require --update-no-dev wpackagist-plugin/flush-opcache:${WP_OPCACHE_VERSION} \
+  && composer require --update-no-dev wpackagist-plugin/matomo \
+  && composer require --update-no-dev abraham/twitteroauth \
   && curl -o /usr/bin/wp -L https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar \
   && chmod +x /usr/bin/wp \
   && curl -o /usr/bin/yt-dlp -L https://github.com/yt-dlp/yt-dlp/releases/latest/download/yt-dlp_linux \
