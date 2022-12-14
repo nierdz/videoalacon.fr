@@ -17,6 +17,7 @@ $understrap_includes = array(
 	'/class-wp-bootstrap-navwalker.php',    // Load custom WordPress nav walker.
 	'/related.php',                         // Get related posts.
 	'/video.php',                           // Download video and setup associated custom post fields.
+	'/twitter.php',                         // Post article to twitter when published.
 );
 
 foreach ( $understrap_includes as $file ) {
