@@ -1,5 +1,5 @@
 FROM php:8.0-fpm
-LABEL version=1.1.10
+LABEL version=1.1.11
 SHELL ["/bin/bash", "-o", "errexit", "-o", "pipefail", "-o", "nounset", "-c"]
 # hadolint ignore=DL3022
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
@@ -66,6 +66,7 @@ RUN apt-get update \
     ${APP_DIR}/web/app/themes/twentytwentythree
 
 COPY madrabbit ${APP_DIR}/web/app/themes/madrabbit
+COPY config/production.php ${APP_DIR}/config/environments/production.php
 COPY supervisor/supervisord.conf /etc/supervisor/supervisord.conf
 COPY supervisor/nginx.conf /etc/supervisor/conf.d/nginx.conf
 COPY supervisor/php-fpm.conf /etc/supervisor/conf.d/php-fpm.conf
