@@ -8,6 +8,14 @@
 // Exit if accessed directly.
 defined( 'ABSPATH' ) || exit;
 
+/**
+ *  Disable autosave.
+ */
+function disable_autosave() {
+	wp_deregister_script( 'autosave' );
+}
+add_action( 'admin_init', 'disable_autosave' );
+
 // Remove admin bar on front.
 add_filter( 'show_admin_bar', '__return_false' );
 remove_action( 'init', 'wp_admin_bar_init' );
