@@ -66,6 +66,7 @@ RUN apt-get update \
     ${APP_DIR}/web/app/themes/twentytwentythree
 
 COPY madrabbit ${APP_DIR}/web/app/themes/madrabbit
+COPY config/production.php ${APP_DIR}/config/environments/production.php
 COPY supervisor/supervisord.conf /etc/supervisor/supervisord.conf
 COPY supervisor/nginx.conf /etc/supervisor/conf.d/nginx.conf
 COPY supervisor/php-fpm.conf /etc/supervisor/conf.d/php-fpm.conf
