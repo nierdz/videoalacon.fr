@@ -219,3 +219,38 @@ function remove_img_attr( $html ) {
 	return preg_replace( '/(width|height)="\d+"\s/', '', $html );
 }
 add_filter( 'post_thumbnail_html', 'remove_img_attr' );
+
+
+/**
+ * Print quote shortcode.
+ * Ugly shit but don't want to spend time to learn to use JS in block editor
+ * https://developer.wordpress.org/block-editor/how-to-guides/javascript/
+ *
+ * @param array  $attr {
+ * Attributes of the shortcode.
+ *
+ *  @type string $author Quote author.
+ * }
+ * @param string $content Shortcode content.
+ * @return string|void HTML content to display video.
+ */
+function pretty_bootstrap_quote( $attr, $content = null ) {
+	$a       = shortcode_atts(
+		array(
+			'author' => '',
+		),
+		$attr
+	);
+	$output  = '<figure class="p-4">';
+	$output .= '<blockquote class="blockquote">';
+	$output .= '<p class="pb-2">';
+	$output .= '"' . $content . '"';
+	$output .= '</p>';
+	$output .= '</blockquote>';
+	$output .= '<figcaption class="blockquote-footer mb-0">';
+	$output .= '' . $a['author'];
+	$output .= '</figcaption>';
+	$output .= '</figure>';
+	return $output;
+}
+add_shortcode( 'quote', 'pretty_bootstrap_quote' );
