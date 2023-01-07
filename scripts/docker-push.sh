@@ -15,7 +15,7 @@ function push_readme() {
   code=$(jq -n --arg msg "$(<README.md)" \
     '{"registry":"registry-1.docker.io","full_description": $msg }' |
     curl -s -o /dev/null -L -w "%{http_code}" \
-      "https://hub.docker.com/v2/repositories/nierdz/mad-rabbit.com/" \
+      "https://hub.docker.com/v2/repositories/nierdz/videoalacon.fr/" \
       -d @- -X PATCH \
       -H "Content-Type: application/json" \
       -H "Authorization: JWT ${DOCKER_TOKEN}")
@@ -30,7 +30,7 @@ function push_readme() {
 
 version=$(sed -n '/LABEL/s/LABEL version=//p' Dockerfile)
 echo "${DOCKER_PASSWORD}" | docker login -u "nierdz" --password-stdin
-docker tag "nierdz/mad-rabbit.com:${version}" "nierdz/mad-rabbit.com:latest"
-docker push "nierdz/mad-rabbit.com:${version}"
-docker push "nierdz/mad-rabbit.com:latest"
+docker tag "nierdz/videoalacon.fr:${version}" "nierdz/videoalacon.fr:latest"
+docker push "nierdz/videoalacon.fr:${version}"
+docker push "nierdz/videoalacon.fr:latest"
 push_readme

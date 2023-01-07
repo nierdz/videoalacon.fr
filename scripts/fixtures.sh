@@ -87,13 +87,13 @@ for post_url in ${POST_LIST}; do
   image_id=$(echo "$html" | sed -nE 's#.*vthumbs/([0-9]{10})\.jpg.*#\1#p')
   docker exec -u www-data wordpress \
     wp media import \
-    "https://media.mad-rabbit.com/vthumbs/$image_id.jpg" \
+    "https://media.videoalacon.fr/vthumbs/$image_id.jpg" \
     --post_id="$post_id" \
     --title="$post_title" \
     --featured_image
   docker exec -u www-data wordpress \
     wp media import \
-    "https://media.mad-rabbit.com/videos/$image_id.mp4" \
+    "https://media.videoalacon.fr/videos/$image_id.mp4" \
     --post_id="$post_id" \
     --title="$post_title"
 done

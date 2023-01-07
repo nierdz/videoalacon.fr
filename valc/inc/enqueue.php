@@ -2,7 +2,7 @@
 /**
  * Enqueue CSS and JS
  *
- * @package madrabbit
+ * @package valc
  */
 
 // Exit if accessed directly.
@@ -11,7 +11,7 @@ defined( 'ABSPATH' ) || exit;
 /**
  * Enqueue CSS and JS.
  */
-function madrabbit_enqueue() {
+function valc_enqueue() {
 	$the_theme     = wp_get_theme();
 	$theme_version = $the_theme->get( 'Version' );
 
@@ -20,4 +20,4 @@ function madrabbit_enqueue() {
 	wp_enqueue_script( 'understrap-scripts', get_template_directory_uri() . '/js/theme.min.js', array(), $theme_version, true );
 }
 
-add_action( 'wp_enqueue_scripts', 'madrabbit_enqueue' );
+add_action( 'wp_enqueue_scripts', 'valc_enqueue' );

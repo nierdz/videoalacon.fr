@@ -2,7 +2,7 @@
 /**
  * Theme basic setup
  *
- * @package madrabbit
+ * @package valc
  */
 
 // Exit if accessed directly.
@@ -12,7 +12,7 @@ defined( 'ABSPATH' ) || exit;
 add_filter( 'show_admin_bar', '__return_false' );
 remove_action( 'init', 'wp_admin_bar_init' );
 
-add_action( 'after_setup_theme', 'madrabbit_setup' );
+add_action( 'after_setup_theme', 'valc_setup' );
 
 /**
  * Sets up theme defaults and registers support for various WordPress features.
@@ -21,7 +21,7 @@ add_action( 'after_setup_theme', 'madrabbit_setup' );
  * runs before the init hook. The init hook is too late for some features, such
  * as indicating support for post thumbnails.
  */
-function madrabbit_setup() {
+function valc_setup() {
 	/*
 	* Let WordPress manage the document title.
 	* By adding theme support, we declare that this theme does not use a

@@ -8,8 +8,8 @@ fixtures.xml
 .gitignore
 images
 LICENSE
-mad-rabbit.local+1-key.pem
-mad-rabbit.local+1.pem
+videoalacon.local-key.pem
+videoalacon.local.pem
 Makefile
 mysql
 nginx

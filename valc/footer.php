@@ -4,7 +4,7 @@
  *
  * Contains the closing of the #content div and all content after
  *
- * @package madrabbit
+ * @package valc
  */
 
 // Exit if accessed directly.
@@ -26,7 +26,7 @@ defined( 'ABSPATH' ) || exit;
 
 			Ceci est un site parodique !
 			<span class="sep"> | </span>
-			<a href="https://github.com/nierdz/mad-rabbit.com/issues">Open an issue</a>
+			<a href="https://github.com/nierdz/videoalacon.fr/issues">Open an issue</a>
 
 			</div><!-- .site-info -->
 

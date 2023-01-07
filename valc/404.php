@@ -2,7 +2,7 @@
 /**
  * The template for displaying 404 pages (not found)
  *
- * @package madrabbit
+ * @package valc
  */
 
 header( 'HTTP/1.1 301 Moved Permanently' );

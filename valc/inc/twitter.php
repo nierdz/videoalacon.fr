@@ -2,7 +2,7 @@
 /**
  * Post article to twitter when published
  *
- * @package madrabbit
+ * @package valc
  */
 
 use Abraham\TwitterOAuth\TwitterOAuth;

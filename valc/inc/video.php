@@ -2,7 +2,7 @@
 /**
  * Download video and thumbnail and setup associated custom post fields
  *
- * @package madrabbit
+ * @package valc
  */
 
 // Exit if accessed directly.

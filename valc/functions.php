@@ -2,7 +2,7 @@
 /**
  * Include theme functions.
  *
- * @package madrabbit
+ * @package valc
  */
 
 // Exit if accessed directly.

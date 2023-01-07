@@ -2,7 +2,7 @@
 /**
  * The template for displaying all single posts
  *
- * @package madrabbit
+ * @package valc
  */
 
 // Exit if accessed directly.

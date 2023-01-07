@@ -4,7 +4,7 @@
  *
  * Displays all of the <head> section and everything up till <div id="content">
  *
- * @package madrabbit
+ * @package valc
  */
 
 // Exit if accessed directly.
@@ -35,8 +35,8 @@ if ( is_single() ) {
 <meta name="twitter:title" content="<?php the_title(); ?>">
 <meta name="twitter:description" content="<?php echo esc_textarea( $description ); ?>">
 <meta name="twitter:image" content="<?php the_post_thumbnail_url(); ?>">
-<meta name="twitter:site" content="@madrabbitvideos">
-<meta name="twitter:creator" content="@madrabbitvideos">
+<meta name="twitter:site" content="@videoalacon">
+<meta name="twitter:creator" content="@ideoalacon">
 <?php } ?>
 <meta charset="<?php bloginfo( 'charset' ); ?>">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -66,11 +66,11 @@ if ( is_single() ) {
 		</button>
 
 		<?php
-		$madrabbit_header_search_form  = '';
-		$madrabbit_header_search_form .= '<form class="d-flex" method="get" id="searchform" action="' . esc_url( home_url( '/' ) ) . '" role="search">';
-		$madrabbit_header_search_form .= '  <input class="form-control me-2" id="s" name="s" type="search" placeholder="Recherche" value="' . get_search_query() . '">';
-		$madrabbit_header_search_form .= '  <button class="btn btn-outline-success" type="submit" id="searchsubmit" name="submit">Rechercher</button>';
-		$madrabbit_header_search_form .= '</form>';
+		$valc_header_search_form  = '';
+		$valc_header_search_form .= '<form class="d-flex" method="get" id="searchform" action="' . esc_url( home_url( '/' ) ) . '" role="search">';
+		$valc_header_search_form .= '  <input class="form-control me-2" id="s" name="s" type="search" placeholder="Recherche" value="' . get_search_query() . '">';
+		$valc_header_search_form .= '  <button class="btn btn-outline-success" type="submit" id="searchsubmit" name="submit">Rechercher</button>';
+		$valc_header_search_form .= '</form>';
 		wp_nav_menu(
 			array(
 				'theme_location'  => 'primary',
@@ -80,7 +80,7 @@ if ( is_single() ) {
 				'menu_class'      => 'navbar-nav me-auto mb-2 mb-md-0',
 				'fallback_cb'     => 'WP_Bootstrap_Navwalker::fallback',
 				'walker'          => new WP_Bootstrap_Navwalker(),
-				'items_wrap'      => '<ul id="%1$s" class="%2$s">%3$s</ul>' . $madrabbit_header_search_form,
+				'items_wrap'      => '<ul id="%1$s" class="%2$s">%3$s</ul>' . $valc_header_search_form,
 			)
 		);
 		?>
