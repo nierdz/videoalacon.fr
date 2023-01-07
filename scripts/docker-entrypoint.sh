@@ -14,7 +14,7 @@ if ! /usr/bin/wp core --allow-root is-installed; then
     --url="$WP_HOME" \
     --title="Vidéos à la con de l'internet" \
     --admin_user="valc" \
-    --admin_password="${TMTK_PASSWORD}" \
+    --admin_password="${VALC_PASSWORD}" \
     --admin_email="nierdz@example.com" \
     --skip-email
 fi
