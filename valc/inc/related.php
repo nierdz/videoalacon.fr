@@ -2,7 +2,7 @@
 /**
  * Custom function to print related posts
  *
- * @package madrabbit
+ * @package valc
  */
 
 /**

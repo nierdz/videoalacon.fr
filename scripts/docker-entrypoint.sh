@@ -13,17 +13,17 @@ if ! /usr/bin/wp core --allow-root is-installed; then
     --allow-root \
     --url="$WP_HOME" \
     --title="Vidéos à la con de l'internet" \
-    --admin_user="madrabbit" \
-    --admin_password="${TMTK_PASSWORD}" \
+    --admin_user="valc" \
+    --admin_password="${VALC_PASSWORD}" \
     --admin_email="nierdz@example.com" \
     --skip-email
 fi
 
-if ! /usr/bin/wp --allow-root theme is-active madrabbit; then
+if ! /usr/bin/wp --allow-root theme is-active valc; then
   /usr/bin/wp \
     theme activate \
     --allow-root \
-    madrabbit
+    valc
 fi
 
 if ! wp --allow-root language core is-installed fr_FR; then

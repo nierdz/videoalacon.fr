@@ -4,7 +4,7 @@ VIRTUAL_ENV_DISABLE_PROMPT = true
 PATH := $(VIRTUALENV_DIR)/bin:vendor/bin:$(PATH)
 SHELL := /usr/bin/env bash
 
-THEME_DIR := $(MAIN_DIR)/madrabbit
+THEME_DIR := $(MAIN_DIR)/valc
 NPM_DIR := $(THEME_DIR)/node_modules
 VENDOR_DIR := $(THEME_DIR)/vendor
 SCSS_DIR := $(THEME_DIR)/scss
@@ -64,10 +64,10 @@ install-ci: install-pip-packages install-npm-packages mkcert compile-assets inst
 
 mkcert: ## Create certs if needed
 	$(info --> Create certs if needed)
-	if [[ -e mad-rabbit.local-key.pem ]] && [[ -e mad-rabbit.local.pem ]]; then \
-		openssl verify -CAfile ~/.local/share/mkcert/rootCA.pem mad-rabbit.local+1.pem; \
+	if [[ -e videoalacon.local-key.pem ]] && [[ -e videoalacon.local.pem ]]; then \
+		openssl verify -CAfile ~/.local/share/mkcert/rootCA.pem videoalacon.local.pem; \
 	else \
-		mkcert "mad-rabbit.local"; \
+		mkcert "videoalacon.local"; \
 	fi; \
 
 tests: ## Run all tests
@@ -83,7 +83,7 @@ compile-assets: $(CSS_DIR)/theme.css $(CSS_DIR)/theme.prefixed.css $(CSS_DIR)/th
 
 clean: ## Remove all generated files
 	rm -rf $(VIRTUALENV_DIR) $(NPM_DIR)
-	rm -f mad-rabbit.local+1-.pem mad-rabbit.local.pem
+	rm -f videoalacon.local+1-.pem videoalacon.local.pem
 	rm -rf $(CSS_DIR) $(JS_DIR)
 	rm -rf $(VENDOR_DIR)
 	rm -rf $(MAIN_DIR)/vendor
@@ -119,7 +119,7 @@ docker-build: ## Build docker image
 	scripts/docker-build.sh
 
 rsync-pull-images: ## Pull images folder from server
-	rsync -avz $(USER)@$(SERVER):/infra/madrabbit/images .
+	rsync -avz $(USER)@$(SERVER):/opt/madrabbit/images .
 
 docker-compose-rebuild: ## Rebuild docker image and run a down and up
 	docker compose build
