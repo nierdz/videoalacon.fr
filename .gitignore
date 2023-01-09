@@ -2,9 +2,9 @@ fixtures.xml
 images
 mysql
 uploads
-videoalacon.local-key.pem
-videoalacon.local.pem
+videoalacon.local+1-key.pem
+videoalacon.local+1.pem
 node_modules
 vendor
 valc/css
-valc/js
+valc/js/theme.min.js

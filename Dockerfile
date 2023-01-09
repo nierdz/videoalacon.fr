@@ -1,5 +1,5 @@
 FROM php:8.0-fpm
-LABEL version=1.2.0
+LABEL version=1.2.1
 SHELL ["/bin/bash", "-o", "errexit", "-o", "pipefail", "-o", "nounset", "-c"]
 # hadolint ignore=DL3022
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
@@ -7,6 +7,7 @@ COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 ENV \
   APP_DIR=/var/www/bedrock \
   BEDROCK_VERSION=1.21.1 \
+  MATOMO_VERSION=4.13.0 \
   WORDPRESS_VERSION=6.1.1 \
   WP_OPCACHE_VERSION=4.1.4
 
@@ -39,9 +40,12 @@ RUN apt-get update \
     intl \
     mysqli \
     opcache \
+    pdo_mysql \
     zip \
   && pecl install imagick \
   && docker-php-ext-enable imagick \
+  && pecl install igbinary \
+  && docker-php-ext-enable igbinary \
   && curl -o nginx_signing.key https://nginx.org/keys/nginx_signing.key \
   && apt-key add nginx_signing.key \
   && echo "deb https://nginx.org/packages/mainline/debian/ bullseye nginx" > /etc/apt/sources.list.d/nginx.list \
@@ -56,6 +60,13 @@ RUN apt-get update \
   && composer require --update-no-dev wpackagist-plugin/flush-opcache:${WP_OPCACHE_VERSION} \
   && composer require --update-no-dev abraham/twitteroauth \
   && composer update \
+  && curl -o /usr/src/matomo.tar.gz "https://builds.matomo.org/matomo-${MATOMO_VERSION}.tar.gz" \
+  && tar -xzf /usr/src/matomo.tar.gz -C /var/www/ \
+  && chown -R root:root /var/www/matomo \
+  && chown -R www-data:www-data /var/www/matomo/{config,tmp} \
+  && curl -o /usr/src/dbip-city-lite.mmdb.gz "https://download.db-ip.com/free/dbip-city-lite-2023-01.mmdb.gz" \
+  && gunzip /usr/src/dbip-city-lite.mmdb.gz \
+  && mv /usr/src/dbip-city-lite.mmdb /var/www/matomo/misc/dbip-city-lite.mmdb \
   && curl -o /usr/bin/wp -L https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar \
   && chmod +x /usr/bin/wp \
   && curl -o /usr/bin/yt-dlp -L https://github.com/yt-dlp/yt-dlp/releases/latest/download/yt-dlp_linux \
