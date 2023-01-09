@@ -105,6 +105,7 @@ $(JS_DIR)/theme.min.js:
 	npx uglifyjs \
 		$(VENDOR_DIR)/bootstrap/dist/js/bootstrap.bundle.js \
 		$(VENDOR_DIR)/video.js/dist/video.js \
+		js/matomo.js \
 		--output $(JS_DIR)/theme.min.js \
 		--compress
 

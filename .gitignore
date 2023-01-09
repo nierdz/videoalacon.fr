@@ -7,4 +7,4 @@ videoalacon.local+1.pem
 node_modules
 vendor
 valc/css
-valc/js
+valc/js/theme.min.js

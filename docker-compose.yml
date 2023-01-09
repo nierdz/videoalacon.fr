@@ -43,6 +43,7 @@ services:
       - ./images:/var/www/bedrock/web/images:ro
       - ./uploads:/var/www/bedrock/web/app/uploads:rw
       - .env.local:/var/www/bedrock/.env:ro
+      - ./matomo/config.ini.php:/var/www/matomo/config/config.ini.php:ro
     depends_on:
       - db
     healthcheck:
