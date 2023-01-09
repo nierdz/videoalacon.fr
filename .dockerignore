@@ -8,8 +8,8 @@ fixtures.xml
 .gitignore
 images
 LICENSE
-videoalacon.local-key.pem
-videoalacon.local.pem
+videoalacon.local+1-key.pem
+videoalacon.local+1.pem
 Makefile
 mysql
 nginx

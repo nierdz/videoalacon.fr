@@ -36,8 +36,8 @@ services:
       - ./php/zzz-hardening.ini:/usr/local/etc/php/conf.d/zzz-hardening.ini
       - ./php/zzz-opcache.ini:/usr/local/etc/php/conf.d/zzz-opcache.ini
       - ./php/zzz-php-fpm-tuning.conf:/usr/local/etc/php-fpm.d/zzz-php-fpm-tuning.conf
-      - ./videoalacon.local-key.pem:/etc/nginx/videoalacon.local-key.pem:ro
-      - ./videoalacon.local.pem:/etc/nginx/videoalacon.local.pem:ro
+      - ./videoalacon.local+1-key.pem:/etc/nginx/videoalacon.local+1-key.pem:ro
+      - ./videoalacon.local+1.pem:/etc/nginx/videoalacon.local+1.pem:ro
       - ./valc:/var/www/bedrock/web/app/themes/valc:rw
       - ./images:/var/www/bedrock/web/images:ro
       - ./uploads:/var/www/bedrock/web/app/uploads:rw
