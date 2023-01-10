@@ -66,7 +66,7 @@ RUN apt-get update \
   && chown -R www-data:www-data /var/www/matomo/{config,tmp} \
   && curl -o /usr/src/dbip-city-lite.mmdb.gz "https://download.db-ip.com/free/dbip-city-lite-2023-01.mmdb.gz" \
   && gunzip /usr/src/dbip-city-lite.mmdb.gz \
-  && mv /usr/src/dbip-city-lite.mmdb /var/www/matomo/misc/dbip-city-lite.mmdb \
+  && mv /usr/src/dbip-city-lite.mmdb /var/www/matomo/misc/DBIP-City.mmdb \
   && curl -o /usr/bin/wp -L https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar \
   && chmod +x /usr/bin/wp \
   && curl -o /usr/bin/yt-dlp -L https://github.com/yt-dlp/yt-dlp/releases/latest/download/yt-dlp_linux \
