@@ -120,7 +120,7 @@ docker-build: ## Build docker image
 	scripts/docker-build.sh
 
 rsync-pull-images: ## Pull images folder from server
-	rsync -avz $(USER)@$(SERVER):/opt/madrabbit/images .
+	rsync -avz $(USER)@$(SERVER):/opt/valc/images .
 
 docker-compose-rebuild: ## Rebuild docker image and run a down and up
 	docker compose build
