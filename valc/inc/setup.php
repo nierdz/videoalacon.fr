@@ -72,4 +72,42 @@ function valc_setup() {
 	add_filter( 'comments_open', '__return_false', 20, 2 );
 	add_filter( 'pings_open', '__return_false', 20, 2 );
 
+	/**
+	 * Remove pages from sitemap
+	 *
+	 * @param WP_Post_Type[] $post_types Array of registered post type objects keyed by their name.
+	 */
+	function disable_post_sitemap( $post_types ) {
+		unset( $post_types['page'] );
+		return $post_types;
+	}
+	add_filter( 'wp_sitemaps_post_types', 'disable_post_sitemap', 10, 1 );
+
+	/**
+	 * Remove tags, formats and categories from sitemap
+	 *
+	 * @param WP_Taxonomy[] $taxonomies Array of registered taxonomy objects keyed by their name.
+	 */
+	function disable_tags_sitemap( $taxonomies ) {
+		unset( $taxonomies['post_tag'] );
+		unset( $taxonomies['post_format'] );
+		unset( $taxonomies['category'] );
+		return $taxonomies;
+	}
+	add_filter( 'wp_sitemaps_taxonomies', 'disable_tags_sitemap', 10, 1 );
+
+	/**
+	 * Remove users from sitemap
+	 *
+	 * @param WP_Sitemaps_Provider $provider Instance of a WP_Sitemaps_Provider.
+	 * @param string               $name     Name of the sitemap provider.
+	 */
+	function disable_user_sitemap( $provider, $name ) {
+		if ( 'users' === $name ) {
+			return false;
+		}
+		return $provider;
+	}
+	add_filter( 'wp_sitemaps_add_provider', 'disable_user_sitemap', 10, 2 );
+
 }
