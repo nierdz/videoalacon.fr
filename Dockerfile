@@ -1,5 +1,5 @@
 FROM php:8.0-fpm
-LABEL version=1.2.3
+LABEL version=1.2.4
 SHELL ["/bin/bash", "-o", "errexit", "-o", "pipefail", "-o", "nounset", "-c"]
 # hadolint ignore=DL3022
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
@@ -7,7 +7,7 @@ COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 ENV \
   APP_DIR=/var/www/bedrock \
   BEDROCK_VERSION=1.21.1 \
-  MATOMO_VERSION=4.13.0 \
+  MATOMO_VERSION=4.13.1 \
   WORDPRESS_VERSION=6.1.1 \
   WP_OPCACHE_VERSION=4.1.4
 
