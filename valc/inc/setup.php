@@ -110,4 +110,15 @@ function valc_setup() {
 	}
 	add_filter( 'wp_sitemaps_add_provider', 'disable_user_sitemap', 10, 2 );
 
+	/**
+	 * Add 404 header when 404 page
+	 */
+	function send_404_header() {
+		if ( is_page( '404 - PAGE INTROUVABLE' ) ) {
+			status_header( 404 );
+			nocache_headers();
+		}
+	}
+	add_action( 'wp', 'send_404_header' );
+
 }
