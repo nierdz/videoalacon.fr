@@ -84,7 +84,7 @@ compile-assets: $(CSS_DIR)/theme.css $(CSS_DIR)/theme.prefixed.css $(CSS_DIR)/th
 clean: ## Remove all generated files
 	rm -rf $(VIRTUALENV_DIR) $(NPM_DIR)
 	rm -f videoalacon.local+1-.pem videoalacon.local+1.pem
-	rm -rf $(CSS_DIR) $(JS_DIR)
+	rm -rf $(CSS_DIR) $(JS_DIR)/theme.min.js
 	rm -rf $(VENDOR_DIR)
 	rm -rf $(MAIN_DIR)/vendor
 	rm -rf $(MAIN_DIR)/images
@@ -103,8 +103,8 @@ $(JS_DIR)/theme.min.js:
 	mkdir -p $(@D)
 	cd $(THEME_DIR); \
 	npx uglifyjs \
-		$(VENDOR_DIR)/bootstrap/dist/js/bootstrap.bundle.js \
-		$(VENDOR_DIR)/video.js/dist/video.js \
+		$(VENDOR_DIR)/bootstrap/dist/js/bootstrap.js \
+		$(VENDOR_DIR)/video.js/dist/alt/video.core.novtt.js \
 		js/matomo.js \
 		--output $(JS_DIR)/theme.min.js \
 		--compress
