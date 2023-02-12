@@ -103,8 +103,8 @@ $(JS_DIR)/theme.min.js:
 	mkdir -p $(@D)
 	cd $(THEME_DIR); \
 	npx uglifyjs \
-		$(VENDOR_DIR)/bootstrap/dist/js/bootstrap.bundle.js \
-		$(VENDOR_DIR)/video.js/dist/video.js \
+		$(VENDOR_DIR)/bootstrap/dist/js/bootstrap.js \
+		$(VENDOR_DIR)/video.js/dist/alt/video.core.novtt.js \
 		js/matomo.js \
 		--output $(JS_DIR)/theme.min.js \
 		--compress
