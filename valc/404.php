@@ -5,6 +5,5 @@
  * @package valc
  */
 
-header( 'HTTP/1.1 301 Moved Permanently' );
-header( 'Location: ' . get_bloginfo( 'url' ) . '/404-page-introuvable/' );
+wp_safe_redirect( esc_url( home_url( '/404-page-introuvable/' ) ), 301 );
 exit();
