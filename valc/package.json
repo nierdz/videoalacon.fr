@@ -7,6 +7,6 @@
     "postcss-cli": "^10.1.0",
     "sass": "^1.61.0",
     "uglify-js": "^3.17.4",
-    "video.js": "^8.0.4"
+    "video.js": "^8.3.0"
   }
 }
