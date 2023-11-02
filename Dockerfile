@@ -1,14 +1,14 @@
-FROM php:8.0-fpm
-LABEL version=1.2.8
+FROM php:8.1-fpm
+LABEL version=1.3.0
 SHELL ["/bin/bash", "-o", "errexit", "-o", "pipefail", "-o", "nounset", "-c"]
 # hadolint ignore=DL3022
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
 ENV \
   APP_DIR=/var/www/bedrock \
-  BEDROCK_VERSION=1.22.0 \
-  MATOMO_VERSION=4.14.1 \
-  WORDPRESS_VERSION=6.2.0 \
+  BEDROCK_VERSION=1.22.5 \
+  MATOMO_VERSION=4.15.1 \
+  WORDPRESS_VERSION=6.3.2 \
   WP_OPCACHE_VERSION=4.2.0
 
 WORKDIR ${APP_DIR}
@@ -19,6 +19,7 @@ RUN apt-get update \
     ca-certificates \
     git \
     gnupg1 \
+    gpg \
     jq \
     less \
     libfreetype6-dev \
@@ -46,10 +47,8 @@ RUN apt-get update \
   && docker-php-ext-enable imagick \
   && pecl install igbinary \
   && docker-php-ext-enable igbinary \
-  && curl -o nginx_signing.key https://nginx.org/keys/nginx_signing.key \
-  && apt-key add nginx_signing.key \
-  && echo "deb https://nginx.org/packages/mainline/debian/ bullseye nginx" > /etc/apt/sources.list.d/nginx.list \
-  && rm nginx_signing.key \
+  && curl -sS https://nginx.org/keys/nginx_signing.key | /usr/bin/gpg --dearmor | /usr/bin/tee /etc/apt/trusted.gpg.d/nginx.gpg \
+  && echo "deb https://nginx.org/packages/mainline/debian/ bookworm nginx" > /etc/apt/sources.list.d/nginx.list \
   && apt-get update \
   && apt-get install -y --no-install-recommends --no-install-suggests \
     ffmpeg \
@@ -64,7 +63,7 @@ RUN apt-get update \
   && tar -xzf /usr/src/matomo.tar.gz -C /var/www/ \
   && chown -R root:root /var/www/matomo \
   && chown -R www-data:www-data /var/www/matomo/{config,tmp} \
-  && curl -o /usr/src/dbip-city-lite.mmdb.gz "https://download.db-ip.com/free/dbip-city-lite-2023-04.mmdb.gz" \
+  && curl -o /usr/src/dbip-city-lite.mmdb.gz "https://download.db-ip.com/free/dbip-city-lite-2023-11.mmdb.gz" \
   && gunzip /usr/src/dbip-city-lite.mmdb.gz \
   && mv /usr/src/dbip-city-lite.mmdb /var/www/matomo/misc/DBIP-City.mmdb \
   && curl -o /usr/bin/wp -L https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar \
