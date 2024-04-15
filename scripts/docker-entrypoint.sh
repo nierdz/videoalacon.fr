@@ -7,6 +7,12 @@ set -o nounset
 DEBUG=${DEBUG:=0}
 [[ $DEBUG -eq 1 ]] && set -o xtrace
 
+# Don't know why I need to run this command again
+# cause it's already done in Dockerfile...
+# If not done wp folder is not created.
+# TODO investigate this shit later
+/usr/bin/composer update
+
 if ! /usr/bin/wp core --allow-root is-installed; then
   /usr/bin/wp \
     core install \
