@@ -1,5 +1,5 @@
-FROM php:8.1-fpm
 LABEL version=1.3.0
+FROM php:8.2-fpm
 SHELL ["/bin/bash", "-o", "errexit", "-o", "pipefail", "-o", "nounset", "-c"]
 # hadolint ignore=DL3022
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
