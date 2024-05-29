@@ -1,2 +1,2 @@
-nodeenv==1.8.0
+nodeenv==1.9.0
 pre-commit==3.7.0
