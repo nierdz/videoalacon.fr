@@ -6,9 +6,9 @@ COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
 ENV \
   APP_DIR=/var/www/bedrock \
-  BEDROCK_VERSION=1.24.0 \
+  BEDROCK_VERSION=1.24.3 \
   MATOMO_VERSION=5.0.3 \
-  WORDPRESS_VERSION=6.5.2 \
+  WORDPRESS_VERSION=6.5.5 \
   WP_OPCACHE_VERSION=4.2.0
 
 WORKDIR ${APP_DIR}
