@@ -63,7 +63,7 @@ RUN apt-get update \
   && tar -xzf /usr/src/matomo.tar.gz -C /var/www/ \
   && chown -R root:root /var/www/matomo \
   && chown -R www-data:www-data /var/www/matomo/{config,tmp} \
-  && curl -o /usr/src/dbip-city-lite.mmdb.gz "https://download.db-ip.com/free/dbip-city-lite-2024-07.mmdb.gz" \
+  && curl -o /usr/src/dbip-city-lite.mmdb.gz "https://download.db-ip.com/free/dbip-city-lite-2024-09.mmdb.gz" \
   && gunzip /usr/src/dbip-city-lite.mmdb.gz \
   && mv /usr/src/dbip-city-lite.mmdb /var/www/matomo/misc/DBIP-City.mmdb \
   && curl -o /usr/bin/wp -L https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar \
