@@ -1,17 +1,13 @@
 version: '3'
 
 services:
-  db:
-    container_name: db
-    env_file: .env.local
-    image: nierdz/mysql:1.1.11
+  mariadb:
+    container_name: mariadb
+    image: mariadb:11
     restart: on-failure
     command: >
-      --default-authentication-plugin=mysql_native_password
       --character-set-server=utf8mb4
       --collation-server=utf8mb4_unicode_ci
-      --general_log=1
-      --general_log_file=/var/lib/mysql/general.log
     volumes:
       - ./mysql:/var/lib/mysql:rw
     healthcheck:
@@ -19,10 +15,14 @@ services:
       interval: 10s
       timeout: 5s
       retries: 3
+    environment:
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+      - MYSQL_DATABASE=${MYSQL_DATABASE}
+      - MYSQL_USER=${MYSQL_USER}
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
 
   wordpress:
     container_name: wordpress
-    env_file: .env.local
     build:
       context: ./
     restart: on-failure
@@ -45,9 +45,26 @@ services:
       - .env.local:/var/www/bedrock/.env:ro
       - ./matomo/config.ini.php:/var/www/matomo/config/config.ini.php:ro
     depends_on:
-      - db
+      - mariadb
     healthcheck:
       test: ["CMD-SHELL", "curl --fail http://127.0.0.1:80/fpm-status || exit 1"]
       interval: 10s
       timeout: 5s
       retries: 3
+    environment:
+      - DB_NAME="${MYSQL_DATABASE}"
+      - DB_USER="${MYSQL_USER}"
+      - DB_PASSWORD="${MYSQL_PASSWORD}"
+      - DB_HOST='mariadb'
+      - VALC_PASSWORD="${VALC_PASSWORD}"
+      - WP_ENV=${WP_ENV}
+      - WP_HOME=${WP_HOME}
+      - WP_SITEURL=${WP_SITEURL}
+      - AUTH_KEY=${AUTH_KEY}
+      - SECURE_AUTH_KEY=${SECURE_AUTH_KEY}
+      - LOGGED_IN_KEY=${LOGGED_IN_KEY}
+      - NONCE_KEY=${NONCE_KEY}
+      - AUTH_SALT=${AUTH_SALT}
+      - SECURE_AUTH_SALT=${SECURE_AUTH_SALT}
+      - LOGGED_IN_SALT=${LOGGED_IN_SALT}
+      - NONCE_SALT=${NONCE_SALT}

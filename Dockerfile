@@ -1,14 +1,14 @@
-FROM php:8.2-fpm
-LABEL version=1.4.1
+FROM php:8.3-fpm
+LABEL version=1.5.0
 SHELL ["/bin/bash", "-o", "errexit", "-o", "pipefail", "-o", "nounset", "-c"]
 # hadolint ignore=DL3022
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
 ENV \
   APP_DIR=/var/www/bedrock \
-  BEDROCK_VERSION=1.24.0 \
-  MATOMO_VERSION=5.0.3 \
-  WORDPRESS_VERSION=6.5.2 \
+  BEDROCK_VERSION=1.24.5 \
+  MATOMO_VERSION=5.1.1 \
+  WORDPRESS_VERSION=6.6.2 \
   WP_OPCACHE_VERSION=4.2.0
 
 WORKDIR ${APP_DIR}
@@ -63,7 +63,7 @@ RUN apt-get update \
   && tar -xzf /usr/src/matomo.tar.gz -C /var/www/ \
   && chown -R root:root /var/www/matomo \
   && chown -R www-data:www-data /var/www/matomo/{config,tmp} \
-  && curl -o /usr/src/dbip-city-lite.mmdb.gz "https://download.db-ip.com/free/dbip-city-lite-2024-04.mmdb.gz" \
+  && curl -o /usr/src/dbip-city-lite.mmdb.gz "https://download.db-ip.com/free/dbip-city-lite-2024-09.mmdb.gz" \
   && gunzip /usr/src/dbip-city-lite.mmdb.gz \
   && mv /usr/src/dbip-city-lite.mmdb /var/www/matomo/misc/DBIP-City.mmdb \
   && curl -o /usr/bin/wp -L https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar \
@@ -73,7 +73,7 @@ RUN apt-get update \
   && rm -rf \
     /var/lib/apt/lists/* \
     /usr/src/* \
-    ${APP_DIR}/web/app/themes/twentytwentythree
+    ${APP_DIR}/web/app/themes/twentytwentyfour
 
 COPY valc ${APP_DIR}/web/app/themes/valc
 COPY config/production.php ${APP_DIR}/config/environments/production.php
