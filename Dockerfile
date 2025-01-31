@@ -43,8 +43,9 @@ RUN apt-get update \
     opcache \
     pdo_mysql \
     zip \
-  && pecl install imagick \
-  && docker-php-ext-enable imagick \
+  # TODO activate this shit again when fixed
+  #&& pecl install imagick \
+  #&& docker-php-ext-enable imagick \
   && pecl install igbinary \
   && docker-php-ext-enable igbinary \
   && curl -sS https://nginx.org/keys/nginx_signing.key | /usr/bin/gpg --dearmor | /usr/bin/tee /etc/apt/trusted.gpg.d/nginx.gpg \
