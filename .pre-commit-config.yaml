@@ -25,11 +25,19 @@ repos:
         language: docker_image
         entry: koalaman/shellcheck:stable
         types: [shell]
+        exclude: >
+          (?x)^(
+            .envrc
+          )
       - id: docker-shell-shfmt
         name: Run shfmt with docker
         language: docker_image
         entry: mvdan/shfmt -w -d -i 2 -ci
         types: [shell]
+        exclude: >
+          (?x)^(
+            .envrc
+          )
   - repo: https://github.com/pre-commit/mirrors-scss-lint
     rev: 'v0.59.0'
     hooks:
