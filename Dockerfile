@@ -1,14 +1,14 @@
 FROM php:8.3-fpm
-LABEL version=1.5.0
+LABEL version=1.5.1
 SHELL ["/bin/bash", "-o", "errexit", "-o", "pipefail", "-o", "nounset", "-c"]
 # hadolint ignore=DL3022
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
 ENV \
   APP_DIR=/var/www/bedrock \
-  BEDROCK_VERSION=1.24.5 \
-  MATOMO_VERSION=5.1.1 \
-  WORDPRESS_VERSION=6.6.2 \
+  BEDROCK_VERSION=1.26.0 \
+  MATOMO_VERSION=5.2.2 \
+  WORDPRESS_VERSION=6.7.1 \
   WP_OPCACHE_VERSION=4.2.0
 
 WORKDIR ${APP_DIR}
@@ -43,8 +43,9 @@ RUN apt-get update \
     opcache \
     pdo_mysql \
     zip \
-  && pecl install imagick \
-  && docker-php-ext-enable imagick \
+  # TODO activate this shit again when fixed
+  #&& pecl install imagick \
+  #&& docker-php-ext-enable imagick \
   && pecl install igbinary \
   && docker-php-ext-enable igbinary \
   && curl -sS https://nginx.org/keys/nginx_signing.key | /usr/bin/gpg --dearmor | /usr/bin/tee /etc/apt/trusted.gpg.d/nginx.gpg \
@@ -63,7 +64,7 @@ RUN apt-get update \
   && tar -xzf /usr/src/matomo.tar.gz -C /var/www/ \
   && chown -R root:root /var/www/matomo \
   && chown -R www-data:www-data /var/www/matomo/{config,tmp} \
-  && curl -o /usr/src/dbip-city-lite.mmdb.gz "https://download.db-ip.com/free/dbip-city-lite-2024-09.mmdb.gz" \
+  && curl -o /usr/src/dbip-city-lite.mmdb.gz "https://download.db-ip.com/free/dbip-city-lite-2025-01.mmdb.gz" \
   && gunzip /usr/src/dbip-city-lite.mmdb.gz \
   && mv /usr/src/dbip-city-lite.mmdb /var/www/matomo/misc/DBIP-City.mmdb \
   && curl -o /usr/bin/wp -L https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar \
@@ -73,7 +74,7 @@ RUN apt-get update \
   && rm -rf \
     /var/lib/apt/lists/* \
     /usr/src/* \
-    ${APP_DIR}/web/app/themes/twentytwentyfour
+    ${APP_DIR}/web/app/themes/twentytwentyfive
 
 COPY valc ${APP_DIR}/web/app/themes/valc
 COPY config/production.php ${APP_DIR}/config/environments/production.php
