@@ -73,7 +73,7 @@ RUN apt-get update \
   && rm -rf \
     /var/lib/apt/lists/* \
     /usr/src/* \
-    ${APP_DIR}/web/app/themes/twentytwentyfour
+    ${APP_DIR}/web/app/themes/twentytwentyfive
 
 COPY valc ${APP_DIR}/web/app/themes/valc
 COPY config/production.php ${APP_DIR}/config/environments/production.php
