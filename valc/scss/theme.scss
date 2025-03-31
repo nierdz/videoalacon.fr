@@ -1,6 +1,7 @@
-@import url('../vendor/bootstrap/scss/bootstrap');
-@import url('../vendor/bootstrap-icons/font/bootstrap-icons.css');
-@import url('../vendor/video.js/dist/video-js.css');
+@use '../vendor/bootstrap/scss/bootstrap';
+@use '../vendor/bootstrap/scss/bootstrap/variables';
+@use '../vendor/bootstrap-icons/font/bootstrap-icons.css';
+@use '../vendor/video.js/dist/video-js.css';
 
 .wrapper {
   padding: $grid-gutter-width 0;
