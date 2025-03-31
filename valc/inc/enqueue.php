@@ -20,7 +20,6 @@ function valc_enqueue() {
 	wp_enqueue_style( 'understrap-styles', get_template_directory_uri() . '/css/theme.min.css', array(), $theme_version );
 	wp_enqueue_script( 'jquery' );
 	wp_enqueue_script( 'valc-scripts', get_template_directory_uri() . '/js/theme.min.js', array(), $theme_version, true );
-	wp_add_inline_script( 'valc-scripts', 'const MATOMO_URL = "' . env( 'MATOMO_URL' ) . '"', 'before' );
 }
 
 add_action( 'wp_enqueue_scripts', 'valc_enqueue' );
