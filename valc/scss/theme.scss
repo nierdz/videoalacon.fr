@@ -1,20 +1,18 @@
-@import '../vendor/bootstrap/scss/bootstrap';
-@import '../vendor/bootstrap-icons/font/bootstrap-icons.css';
-@import '../vendor/video.js/dist/video-js.css';
+@use '../vendor/bootstrap/scss/bootstrap';
+@use '../vendor/bootstrap/scss/bootstrap/variables';
+@use '../vendor/bootstrap-icons/font/bootstrap-icons.css';
+@use '../vendor/video.js/dist/video-js.css';
 
-// Some basic padding for all wrappers
 .wrapper {
   padding: $grid-gutter-width 0;
 }
 
-// Images from index and categories
 .index-image-cards {
   height: 15rem;
   object-fit: cover;
   width: 100%;
   }
 
-// Images from related sidebar
 .related-image-cards {
   height: 30rem;
   object-fit: cover;

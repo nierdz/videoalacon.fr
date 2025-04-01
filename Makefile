@@ -29,7 +29,7 @@ $(VIRTUALENV_DIR):
 
 $(VIRTUALENV_DIR)/bin/pre-commit: $(MAIN_DIR)/requirements.txt
 	pip install -r $(MAIN_DIR)/requirements.txt
-	nodeenv --python-virtualenv --node=16.3.0
+	nodeenv --python-virtualenv --node=23.10.0
 	@touch '$(@)'
 
 pre-commit-install: ## Install pre-commit hooks
@@ -64,10 +64,10 @@ install-ci: install-pip-packages install-npm-packages mkcert compile-assets inst
 
 mkcert: ## Create certs if needed
 	$(info --> Create certs if needed)
-	if [[ -e videoalacon.local+1-key.pem ]] && [[ -e videoalacon.local+1.pem ]]; then \
-		openssl verify -CAfile ~/.local/share/mkcert/rootCA.pem videoalacon.local+1.pem; \
+	if [[ -e videoalacon.local-key.pem ]] && [[ -e videoalacon.local.pem ]]; then \
+		openssl verify -CAfile ~/.local/share/mkcert/rootCA.pem videoalacon.local.pem; \
 	else \
-		mkcert "videoalacon.local" "stats.videoalacon.local"; \
+		mkcert "videoalacon.local"; \
 	fi; \
 
 tests: ## Run all tests
@@ -83,7 +83,7 @@ compile-assets: $(CSS_DIR)/theme.css $(CSS_DIR)/theme.prefixed.css $(CSS_DIR)/th
 
 clean: ## Remove all generated files
 	rm -rf $(VIRTUALENV_DIR) $(NPM_DIR)
-	rm -f videoalacon.local+1-.pem videoalacon.local+1.pem
+	rm -f videoalacon.local.pem videoalacon.local.pem
 	rm -rf $(CSS_DIR) $(JS_DIR)/theme.min.js
 	rm -rf $(VENDOR_DIR)
 	rm -rf $(MAIN_DIR)/vendor
@@ -105,7 +105,6 @@ $(JS_DIR)/theme.min.js:
 	npx uglifyjs \
 		$(VENDOR_DIR)/bootstrap/dist/js/bootstrap.js \
 		$(VENDOR_DIR)/video.js/dist/alt/video.core.novtt.js \
-		js/matomo.js \
 		--output $(JS_DIR)/theme.min.js \
 		--compress
 

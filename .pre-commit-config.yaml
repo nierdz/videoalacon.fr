@@ -38,7 +38,9 @@ repos:
           (?x)^(
             .envrc
           )
-  - repo: https://github.com/pre-commit/mirrors-scss-lint
-    rev: 'v0.59.0'
-    hooks:
-    - id: scss-lint
+      - id: stylelint scss
+        name: Run stylelint on scss
+        entry: npx stylelint
+        language: system
+        files: \.(scss)$
+        exclude: vendor

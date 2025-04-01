@@ -1,15 +1,14 @@
 FROM php:8.3-fpm
-LABEL version=1.5.1
+LABEL version=1.6.0
 SHELL ["/bin/bash", "-o", "errexit", "-o", "pipefail", "-o", "nounset", "-c"]
 # hadolint ignore=DL3022
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
 ENV \
   APP_DIR=/var/www/bedrock \
-  BEDROCK_VERSION=1.26.0 \
-  MATOMO_VERSION=5.2.2 \
-  WORDPRESS_VERSION=6.7.1 \
-  WP_OPCACHE_VERSION=4.2.0
+  BEDROCK_VERSION=1.26.1 \
+  WORDPRESS_VERSION=6.7.2 \
+  WP_OPCACHE_VERSION=4.2.3
 
 WORKDIR ${APP_DIR}
 
@@ -60,13 +59,6 @@ RUN apt-get update \
   && composer require --update-no-dev wpackagist-plugin/flush-opcache:${WP_OPCACHE_VERSION} \
   && composer require --update-no-dev abraham/twitteroauth \
   && composer update \
-  && curl -o /usr/src/matomo.tar.gz "https://builds.matomo.org/matomo-${MATOMO_VERSION}.tar.gz" \
-  && tar -xzf /usr/src/matomo.tar.gz -C /var/www/ \
-  && chown -R root:root /var/www/matomo \
-  && chown -R www-data:www-data /var/www/matomo/{config,tmp} \
-  && curl -o /usr/src/dbip-city-lite.mmdb.gz "https://download.db-ip.com/free/dbip-city-lite-2025-01.mmdb.gz" \
-  && gunzip /usr/src/dbip-city-lite.mmdb.gz \
-  && mv /usr/src/dbip-city-lite.mmdb /var/www/matomo/misc/DBIP-City.mmdb \
   && curl -o /usr/bin/wp -L https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar \
   && chmod +x /usr/bin/wp \
   && curl -o /usr/bin/yt-dlp -L https://github.com/yt-dlp/yt-dlp/releases/latest/download/yt-dlp_linux \
